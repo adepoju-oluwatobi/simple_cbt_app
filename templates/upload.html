@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Questions</title>
+</head>
+<body>
+    <h1>Upload Questions</h1>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <label for="question-file">Select a file (CSV, Excel, Word, etc.):</label>
+        <input type="file" name="question-file" accept=".csv, .xlsx, .docx">
+        <br>
+        <input type="submit" value="Upload">
+    </form>
+</body>
+</html>

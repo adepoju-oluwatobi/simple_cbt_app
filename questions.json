@@ -1,0 +1,12 @@
+{
+    "1": {
+        "question": "What is the capital of France?",
+        "options": ["London", "Berlin", "Madrid", "Paris"],
+        "correct_answer": "Paris"
+    },
+    "2": {
+        "question": "Which planet is known as the Red Planet?",
+        "options": ["Earth", "Mars", "Venus", "Jupiter"],
+        "correct_answer": "Mars"
+    }
+}
