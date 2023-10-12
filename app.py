@@ -21,7 +21,12 @@ with open(questions_json_path, 'r') as questions_file:
     questions = json.load(questions_file)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
+def homepage():
+    return render_template('landingPage.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
@@ -42,9 +47,15 @@ def login():
 @app.route('/dashboard')
 def dashboard():
     if 'username' in session:
-        return render_template('dashboard.html', username=session['username'])
+        username = session['username']
+        user_data = users.get(username, {})  # Get the user's data
+        user_class = user_data.get('class', 'N/A')  # Default to 'N/A' if 'class' data is not present
+        user_age = user_data.get('age', 'N/A')
+
+        return render_template('dashboard.html', username=username, user_class=user_class, user_age=user_age)
     else:
         return redirect(url_for('login'))
+
 
 
 @app.route('/start_exam')
