@@ -1,0 +1,14 @@
+{
+    "user1": {
+        "password": "password1",
+        "class": "year 7C"
+    },
+    "user2": {
+        "password": "password2",
+        "class": "Year 7D"
+    },
+    "Femi": {
+        "password": "femolala",
+        "class": "Year 7C"
+    }
+}

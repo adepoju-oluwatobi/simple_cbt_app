@@ -10,15 +10,20 @@ app.secret_key = 'username'  # Replace with your own secret key
 print(app.secret_key)
 
 # Specify the full paths to the JSON files
-users_json_path = os.path.join(current_directory, './users.json')
+students_json_path = os.path.join(current_directory, 'student.json')
 questions_json_path = os.path.join(current_directory, './questions.json')
 
-# Load sample user data (users.json) and question data (questions.json)
-with open(users_json_path, 'r') as user_file:
-    users = json.load(user_file)
+# Load sample user data (student.json) and question data (questions.json)
+with open(students_json_path, 'r') as students_data:
+    students = json.load(students_data)
 
 with open(questions_json_path, 'r') as questions_file:
     questions = json.load(questions_file)
+
+
+@app.route('/*')
+def universal(page):
+    return render_template('header.html')
 
 
 @app.route('/')
@@ -26,7 +31,7 @@ def homepage():
     return render_template('landingPage.html')
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/student/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
@@ -35,38 +40,41 @@ def login():
         print(f"Received username: {username}, password: {password}")
 
         # Simplified authentication (replace with your authentication logic)
-        if username in users and users[username]['password'] == password:
+        if username in students and students[username]['password'] == password:
             session['username'] = username
             return redirect(url_for('dashboard'))
 
-        return render_template('login.html', error="Invalid credentials")
+        return render_template('student/login.html', error="Invalid credentials")
 
-    return render_template('login.html')
+    return render_template('student/login.html')
 
 
-@app.route('/dashboard')
+@app.route('/student/dashboard')
 def dashboard():
     if 'username' in session:
         username = session['username']
-        user_data = users.get(username, {})  # Get the user's data
-        user_class = user_data.get('class', 'N/A')  # Default to 'N/A' if 'class' data is not present
-        user_age = user_data.get('age', 'N/A')
+        student_data = students.get(username, {})  # Get the user's data
+        student_class = student_data.get('class', 'N/A')  # Default to 'N/A' if 'class' data is not present
 
-        return render_template('dashboard.html', username=username, user_class=user_class, user_age=user_age)
+        return render_template('student/dashboard.html', username=username, student_class=student_class)
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('student/login'))
 
 
+@app.route('/student/exam_page')
+def exam_page():
+    return render_template('student/exam_page.html')
 
-@app.route('/start_exam')
+
+@app.route('/student/start_exam')
 def start_exam():
     if 'username' in session:
-        return render_template('exam.html', questions=questions)
+        return render_template('student/exam.html', questions=questions)
     else:
         return redirect(url_for('login'))
 
 
-@app.route('/submit_exam', methods=['POST'])
+@app.route('/student/submit_exam', methods=['POST'])
 def submit_exam():
     if 'username' in session:
         if request.form.get('exam_submission') == '1':
@@ -77,7 +85,7 @@ def submit_exam():
             session['score'] = score
 
             return redirect(url_for('show_score'))
-    return redirect(url_for('login'))
+    return redirect(url_for('student/login'))
 
 
 def calculate_score(form_data):
@@ -96,7 +104,7 @@ def show_score():
     if 'username' in session:
         score = session.get('score')
         if score is not None:
-            return render_template('score.html', score=score)
+            return render_template('student/score.html', score=score)
     return redirect(url_for('login'))
 
 

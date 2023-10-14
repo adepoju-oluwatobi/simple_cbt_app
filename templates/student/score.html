@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
-    <title>Landing Page</title>
+    <title>Score</title>
 </head>
 <body>
 {% include 'header.html' %}
     <div class="container">
-        <h1>This is a Landing page</h1>
-        <a href="login">
-            <input type="submit" value="Login">
-        </a>
+        <h1>Your Score</h1>
+        <p>Your score is: {{ score }}</p>
+        <a href="/student/dashboard">Back to Dashboard</a>
+        <a href="/student/start_exam">Retake exam</a>
     </div>
 </body>
 </html>
