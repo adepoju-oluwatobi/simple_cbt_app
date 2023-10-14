@@ -130,3 +130,37 @@ a {
     color: #FF0000;
     font-weight: bold;
 }
+/* style.css */
+
+/* Apply a basic style to the table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+/* Style table headers */
+th {
+    background-color: #0077b6;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Style table rows */
+tr {
+    border-bottom: 1px solid #ddd;
+}
+
+/* Style table cells */
+td {
+    padding: 10px;
+}
+
+/* Alternate row background color for better readability */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
