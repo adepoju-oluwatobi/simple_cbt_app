@@ -45,6 +45,7 @@ nav a:hover {
 .dropdown {
     position: relative;
     display: inline-block;
+    cursor: pointer;
 }
 
 /* Style the dropdown content (hidden by default) */

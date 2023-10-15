@@ -14,6 +14,9 @@ students_json_path = os.path.join(current_directory, 'student_data/student.json'
 teachers_json_path = os.path.join(current_directory, 'teacher_data/teacher.json')
 questions_json_path = os.path.join(current_directory, 'questions/questions.json')
 
+# Declare a dictionary to store teacher-student assignments
+teacher_student_assignments = {}
+
 # Load sample user data (student.json) and question data (questions.json)
 with open(students_json_path, 'r') as students_data:
     students = json.load(students_data)
@@ -45,11 +48,26 @@ def student_login():
         # Simplified authentication (replace with your authentication logic)
         if username in students and students[username]['password'] == password:
             session['username'] = username
+
+            # Check for a teacher assigned to the student's class
+            student_class = students[username]['class']
+            assigned_teacher = get_teacher_for_class(student_class)
+
+            if assigned_teacher:
+                session['assigned_teacher'] = assigned_teacher
+
             return redirect(url_for('student_dashboard'))
 
         return render_template('student/login.html', error="Invalid credentials", user_authenticated=is_authenticated())
 
     return render_template('student/login.html')
+
+
+def get_teacher_for_class(student_class):
+    for teacher, teacher_data in teachers.items():
+        if 'class' in teacher_data and teacher_data['class'] == student_class:
+            return teacher
+    return None
 
 
 @app.route('/teacher/login', methods=['GET', 'POST'])
@@ -99,12 +117,17 @@ def teacher_dashboard():
         return redirect(url_for('teacher/login'))
 
 
-@app.route('/manage_student')
+@app.route('/teacher/manage_student')
 def manage_student():
     if 'username' in session:
-        username = session['username']
+        teacher_username = session['username']
+        assigned_class = teachers[teacher_username]['class']
 
-        return render_template('teacher/manage_student.html', username=username, students=students)
+        # Filter students based on class
+        filtered_students = {username: student_data for username, student_data in students.items() if
+                             student_data.get('class') == assigned_class}
+
+        return render_template('teacher/manage_student.html', username=teacher_username, students=filtered_students)
     else:
         return redirect(url_for('teacher_login'))
 

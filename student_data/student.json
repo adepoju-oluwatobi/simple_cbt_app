@@ -1,20 +1,24 @@
 {
-    "user1": {
-        "name": "Adepoju Oluwatobi",
-        "password": "password1",
-        "class": "year 7C",
-        "score": 1
+    "Atoe": {
+        "name": "Atoe Bright",
+        "password": "atoe",
+        "class": "Year 8G",
+        "parent_name": "Mr and Mrs ....",
+        "parent_phone_no": "08156663878",
+        "score": 2
     },
-    "user2": {
+    "Showemimo": {
         "name": "Showemimo Olufela",
-        "password": "password2",
-        "class": "Year 7D",
+        "password": "Showemimo",
+        "class": "Year 8G",
+        "parent_name": "Mr and Mrs Showemimo",
+        "parent_phone_no": "08156663877",
         "score": 1
     },
     "Femi": {
         "name": "Femi Adeoye",
         "password": "femolala",
         "class": "Year 7C",
-        "score": 0
+        "score": 2
     }
 }
