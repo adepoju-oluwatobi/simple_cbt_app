@@ -10,7 +10,11 @@
 </head>
 <body>
 {% include 'header.html' %}
-    <h1>Available test</h1>
-<p><a href="/student/start_exam">Geography</a></p>
+<h1>Available Tests</h1>
+<ul>
+    {% for subject in subjects %}
+    <li><a href="{{ url_for('start_exam', subject=subject) }}">{{ subject }}</a></li>
+    {% endfor %}
+</ul>
 </body>
 </html>

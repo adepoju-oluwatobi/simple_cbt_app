@@ -117,6 +117,33 @@ def teacher_dashboard():
         return redirect(url_for('teacher/login'))
 
 
+@app.route('/available_tests')
+def available_tests():
+    if 'username' in session:
+        username = session['username']
+        student_data = students.get(username, {})
+        student_class = student_data.get('class', '')  # Get the student's class from the session
+
+        # Load your questions JSON data
+        with open('questions/questions.json', 'r') as questions_file:
+            all_questions = json.load(questions_file)
+
+        # Filter questions based on the student's class
+        class_questions = all_questions.get(student_class, {})  # Assumes class names match keys in questions.json
+
+        return render_template('student/available_tests.html', subjects=class_questions.keys(),
+                               student_class=student_class)
+
+    return redirect(url_for('student/login'))
+
+
+# Function to get questions for a specific class
+def get_questions_for_class(class_name):
+    questions = load_questions()
+    class_data = questions.get(class_name, {})
+    return class_data
+
+
 @app.route('/teacher/manage_student')
 def manage_student():
     if 'username' in session:
@@ -132,68 +159,141 @@ def manage_student():
         return redirect(url_for('teacher_login'))
 
 
-@app.route('/student/exam_page')
-def exam_page():
-    return render_template('student/exam_page.html')
+# Load questions from the JSON file
+def load_questions():
+    with open(questions_json_path, 'r') as questions_data:
+        questions = json.load(questions_data)
+    return questions
 
 
-@app.route('/student/start_exam')
-def start_exam():
+# Function to get questions for a specific class and subject
+def get_questions_for_class_subject(class_name, subject):
+    questions = load_questions()
+    class_data = questions.get(class_name, {})
+    subject_data = class_data.get(subject, {})
+    return subject_data
+
+
+@app.route('/start_exam/<class_name>/<subject>')
+def start_exam(class_name, subject):
     if 'username' in session:
-        return render_template('student/exam.html', questions=questions)
+        student_username = session['username']
+        student_data = students.get(student_username, {})
+        student_class = student_data.get('class', '')
+
+        # Check if the student's class matches the specified class_name
+        if student_class == class_name:
+            questions_for_class_subject = get_questions_for_class_subject(class_name, subject)
+            if questions_for_class_subject:
+                return render_template('student/exam.html', questions=questions_for_class_subject, subject=subject)
+            else:
+                return "No questions found for the specified subject"
+        else:
+            return "Unauthorized access to this subject"
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('student/login'))
 
 
 @app.route('/student/submit_exam', methods=['POST'])
 def submit_exam():
     if 'username' in session:
-        if request.form.get('exam_submission') == '1':
-            # Calculate the score based on the user's answers
-            score = calculate_score(request.form)
+        if request.method == 'POST':
+            if 'exam_submission' in request.form and request.form['exam_submission'] == '1':
+                subject = request.form['subject']
+                user_answers = request.form.to_dict(flat=False)
+                score = calculate_score(user_answers, subject)
+                session['score'] = score
 
-            # Store the score in the session
-            session['score'] = score
+                # Save the score to the JSON file
+                save_score(session['username'], subject, score)
+                print(score)
+                return redirect(url_for('show_score', subject=subject)
+                                )
 
-            # Save the score to the JSON file
-            save_score(session['username'], score)
-
-            return redirect(url_for('show_score'))
-    return redirect(url_for('student/login'))
-
-
-def calculate_score(form_data):
-    # Calculate the score based on the user's answers
-    score = 0
-    for question_id, question_data in questions.items():
-        user_answer = form_data.get('answer_' + question_id)
-        correct_answer = question_data['correct_answer']
-        if user_answer == correct_answer:
-            score += 1
-    return score
-
-
-@app.route('/show_score')
-def show_score():
-    if 'username' in session:
-        score = session.get('score')
-        if score is not None:
-            return render_template('student/score.html', score=score)
     return redirect(url_for('student_login'))
 
 
-def save_score(username, score):
-    # Load the existing JSON data
-    with open(students_json_path, 'r') as students_data:
-        students = json.load(students_data)
+def calculate_score(user_answers, subject):
+    # Load the existing student data from the JSON file
+    global score
+    students = load_student_data()
 
-    # Update the user's score
+    # Get the username from the session
+    username = session.get('username')
+
+    if username:
+        # Check if the username exists in the students data
+        if username in students:
+            student_data = students[username]
+            student_scores = student_data.get('scores', {})
+
+            # Load the questions for the specified subject from your JSON data
+            subject_data = questions.get(student_data['class'], {}).get(subject, {})
+
+            # Initialize the score
+            score = 0
+
+            for question_id, question_data in subject_data.items():
+                user_answer = user_answers.get(f'answer_{question_id}')
+                correct_answer = question_data.get('correct_answer')
+
+                if user_answer and user_answer[0] == correct_answer:
+                    score += 1
+
+            # Update the user's score for the specific subject
+            student_scores[subject] = score
+
+            # Update the student's data with the new scores
+            student_data['scores'] = student_scores
+            students[username] = student_data
+
+            # Write the updated data back to the JSON file
+            with open(students_json_path, 'w') as students_data_file:
+                json.dump(students, students_data_file, indent=4)
+
+    return score
+
+
+@app.route('/show_score/<subject>')
+def show_score(subject):
+    if 'username' in session:
+        username = session['username']
+        score = get_student_score(username, subject)
+        if score is not None:
+            return render_template('student/score.html', subject=subject, score=score)
+        else:
+            return "No score found for the specified subject"
+    return redirect(url_for('student_login'))
+
+
+def get_student_score(username, subject):
+    # Load the student data from the JSON file
+    with open(students_json_path, 'r') as students_data_file:
+        students_data = json.load(students_data_file)
+
+    # Get the user's data
+    user_data = students_data.get(username, {})
+    if 'scores' in user_data:
+        scores = user_data['scores']
+        return scores.get(subject, 'N/A')  # Return the score for the specified subject
+    return 'N/A'  # If user data or scores not found, return 'N/A'
+
+
+def save_score(username, subject, score):
+    # Load the existing student data from the JSON file
+    with open(students_json_path, 'r') as students_data_file:
+        students = json.load(students_data_file)
+
+    # Update the user's score for the specific subject
     if username in students:
-        students[username]['score'] = score
+        if 'scores' not in students[username]:
+            students[username]['scores'] = {}
+
+        students[username]['scores'][subject] = score
 
     # Write the updated data back to the JSON file
-    with open(students_json_path, 'w') as students_data:
-        json.dump(students, students_data, indent=4)
+    with open(students_json_path, 'w') as students_data_file:
+        json.dump(students, students_data_file, indent=4)
 
 
 @app.route('/student/logout')
@@ -232,6 +332,106 @@ def upload_file():
         print(file_contents.decode())
 
         return "File uploaded and processed successfully"
+
+
+# Load student data from student.json file
+def load_student_data():
+    with open('student_data/student.json', 'r') as student_file:
+        student_data = json.load(student_file)
+    return student_data
+
+
+@app.route('/subject_scores/<subject>')
+def subject_scores(subject):
+    # Get the class information from the request
+    class_name = request.args.get('class')
+
+    # Load student data from the JSON file
+    students = load_student_data()
+
+    # Create a list to store student data with scores for the selected subject and class
+    students_with_scores = []
+
+    for username, student in students.items():
+        if student.get('class') == class_name and 'scores' in student and subject in student['scores']:
+            students_with_scores.append({
+                'username': username,
+                'name': student['name'],
+                'class': student['class'],
+                'score': student['scores'][subject]
+            })
+
+    return render_template('teacher/subject_scores.html', subject=subject, students=students_with_scores)
+
+
+@app.route('/teacher/manage_grades')
+def manage_grades():
+    # Load student data from the JSON file
+    students = load_student_data()
+
+    return render_template('teacher/manage_grades.html', students=students)
+
+
+import json
+
+
+@app.route('/submit_question', methods=['GET', 'POST'])
+def submit_question():
+    if request.method == 'POST':
+        # Handle form submission and save the new questions
+        class_name = request.form['class']
+        subject = request.form['subject']
+        num_questions = int(request.form['num_questions'])
+
+        # Load the existing questions from questions.json
+        with open(questions_json_path, 'r') as questions_file:
+            questions = json.load(questions_file)
+
+        # Create a list to store the new question data
+        new_questions_data = []
+
+        for i in range(1, num_questions + 1):
+            question = request.form[f'question_{i}']
+            options = request.form[f'options_{i}'].split(',')
+            correct_answer = request.form[f'correct_answer_{i}']
+
+            # Create new question data
+            new_question_data = {
+                'question': question,
+                'options': options,
+                'correct_answer': correct_answer
+            }
+
+            # Append the new question data to the appropriate class and subject
+            if class_name not in questions:
+                questions[class_name] = {}  # Create a new class if it doesn't exist
+
+            if subject not in questions[class_name]:
+                questions[class_name][subject] = {}  # Create a new subject if it doesn't exist
+
+            # Find the next question number (e.g., "1", "2", "3")
+            question_number = str(len(questions[class_name][subject]) + 1)
+
+            # Add the new question with the next available number
+            questions[class_name][subject][question_number] = new_question_data
+
+            # Append the new question data to the list
+            new_questions_data.append(new_question_data)
+
+        # Save the updated questions back to questions.json
+        with open(questions_json_path, 'w') as questions_file:
+            json.dump(questions, questions_file, indent=4)
+
+        return render_template('teacher/create_question.html', new_questions_data=new_questions_data)
+
+    # If it's a GET request, display the create_question.html form
+    return render_template('teacher/create_question.html')
+
+
+def save_questions():
+    # Save the updated question data to the JSON file
+    with open(questions_json_path, 'w') as questions_file:
+        json.dump(questions, questions_file, indent=4)
 
 
 if __name__ == '__main__':

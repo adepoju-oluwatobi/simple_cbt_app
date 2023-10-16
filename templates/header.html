@@ -1,5 +1,7 @@
 <!-- templates/header.html -->
-
+<head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='header.css') }}">
+</head>
 <header>
     <p>MCQ software</p>
     <nav>
@@ -9,7 +11,7 @@
             <li><a href="/contact">Contact</a></li>
             <li class="dropdown">
                 <a href="#">Login</a>
-                <ul class="dropdown-content">
+                <ul class="dropdown-content" id="login-dropdown">
                     <li><a href="/student/login">Student Login</a></li>
                     <li><a href="/teacher/login">Teachers Login</a></li>
                     <li><a href="/parent/login">Parent Login</a></li>
@@ -18,4 +20,23 @@
             </li>
         </ul>
     </nav>
+    <!-- Add this script at the end of your HTML body -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const loginDropdown = document.getElementById("login-dropdown");
+        const loginLink = document.querySelector(".dropdown a");
+
+        loginLink.addEventListener("click", function (e) {
+            e.preventDefault(); // Prevent the default link behavior
+            loginDropdown.classList.toggle("show"); // Toggle the visibility of the dropdown
+        });
+
+        // Close the dropdown when the user clicks outside of it
+        window.addEventListener("click", function (e) {
+            if (!e.target.matches('.dropdown a')) {
+                loginDropdown.classList.remove("show");
+            }
+        });
+    });
+</script>
 </header>

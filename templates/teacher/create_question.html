@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Your HTML head content here -->
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="container">
+        <h1>Create New Questions</h1>
+        <form method="POST" action="{{ url_for('submit_question') }}">
+            <label for="class">Class:</label>
+            <select id="class" name="class" required>
+                <option value="Year 8G">Year 8G</option>
+                <option value="Year 7C">Year 7C</option>
+                <option value="Year 9C">Year 9C</option>
+                <!-- Add more options for different classes -->
+            </select>
+
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" required>
+
+            <label for="num_questions">Number of Questions to Create:</label>
+            <input type="number" id="num_questions" name="num_questions" required>
+
+            <div id="questions-container">
+                <!-- This div will contain the dynamically created questions and options fields -->
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript code to create question and options fields dynamically
+        document.addEventListener('DOMContentLoaded', function () {
+            const numQuestionsInput = document.getElementById('num_questions');
+            const questionsContainer = document.getElementById('questions-container');
+
+            numQuestionsInput.addEventListener('input', function () {
+                const numQuestions = parseInt(numQuestionsInput.value);
+                questionsContainer.innerHTML = ''; // Clear previous fields
+
+                for (let i = 1; i <= numQuestions; i++) {
+                    const questionLabel = document.createElement('label');
+                    questionLabel.innerText = `Question ${i}:`;
+
+                    const questionInput = document.createElement('input');
+                    questionInput.type = 'text';
+                    questionInput.name = `question_${i}`;
+                    questionInput.required = true;
+
+                    const optionsLabel = document.createElement('label');
+                    optionsLabel.innerText = `Options (comma-separated) for Question ${i}:`;
+
+                    const optionsInput = document.createElement('input');
+                    optionsInput.type = 'text';
+                    optionsInput.name = `options_${i}`;
+                    optionsInput.required = true;
+
+                    const correctAnswerLabel = document.createElement('label');
+                    correctAnswerLabel.innerText = `Correct Answer for Question ${i}:`;
+
+                    const correctAnswerInput = document.createElement('input');
+                    correctAnswerInput.type = 'text';
+                    correctAnswerInput.name = `correct_answer_${i}`;
+                    correctAnswerInput.required = true;
+
+                    // Append question and options fields to the container
+                    questionsContainer.appendChild(questionLabel);
+                    questionsContainer.appendChild(questionInput);
+                    questionsContainer.appendChild(optionsLabel);
+                    questionsContainer.appendChild(optionsInput);
+                    questionsContainer.appendChild(correctAnswerLabel);
+                    questionsContainer.appendChild(correctAnswerInput);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

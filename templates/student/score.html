@@ -8,11 +8,15 @@
 </head>
 <body>
 {% include 'header.html' %}
-    <div class="container">
-        <h1>Your Score</h1>
+<div class="container">
+    <h1>Your Score</h1>
+    {% if score != 'N/A' %}
         <p>Your score is: {{ score }}</p>
-        <a href="/student/dashboard">Back to Dashboard</a>
-        <a href="/student/start_exam">Retake exam</a>
-    </div>
+    {% else %}
+        <p>Your score for this subject is not available.</p>
+    {% endif %}
+    <a href="/student/dashboard">Back to Dashboard</a>
+    <a href="/available_tests">Take Test</a>
+</div>
 </body>
 </html>

@@ -5,7 +5,10 @@
         "class": "Year 8G",
         "parent_name": "Mr and Mrs ....",
         "parent_phone_no": "08156663878",
-        "score": 2
+        "scores": {
+            "Geography": 1,
+            "Science": 1
+        }
     },
     "Showemimo": {
         "name": "Showemimo Olufela",
@@ -13,12 +16,21 @@
         "class": "Year 8G",
         "parent_name": "Mr and Mrs Showemimo",
         "parent_phone_no": "08156663877",
-        "score": 1
+        "score": 1,
+        "scores": {
+            "Science": 2,
+            "Geography": 1
+        }
     },
     "Femi": {
         "name": "Femi Adeoye",
         "password": "femolala",
         "class": "Year 7C",
-        "score": 2
+        "score": 2,
+        "scores": {
+            "Science": 3,
+            "Geography": 0,
+            "computer": 1
+        }
     }
 }
