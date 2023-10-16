@@ -4,5 +4,11 @@
         "password": "admin",
         "subject": "computer Studies",
         "class": "Year 8G"
+    },
+    "Akinwale": {
+        "email": "none for now",
+        "password": "akinwale",
+        "subject": "Home Economics",
+        "class": "Year 7D"
     }
 }

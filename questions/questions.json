@@ -77,6 +77,18 @@
                 ],
                 "correct_answer": "a"
             }
+        },
+        "Home Econs": {
+            "1": {
+                "question": "what is a dog",
+                "options": [
+                    "a",
+                    "f",
+                    "g",
+                    "  t"
+                ],
+                "correct_answer": "t"
+            }
         }
     },
     "Year 7C": {
