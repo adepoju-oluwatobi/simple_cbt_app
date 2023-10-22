@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, session
 import json
 import os
+
+from flask import Flask, render_template, flash, request, redirect, url_for, session
 
 # Get the current directory of your Python script
 current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -183,11 +184,18 @@ def start_exam(class_name, subject):
 
         # Check if the student's class matches the specified class_name
         if student_class == class_name:
-            questions_for_class_subject = get_questions_for_class_subject(class_name, subject)
-            if questions_for_class_subject:
-                return render_template('student/exam.html', questions=questions_for_class_subject, subject=subject)
+            # Load questions from the JSON file
+            questions = load_questions()
+
+            # Check if the subject exists in the questions data
+            if class_name in questions and subject in questions[class_name]:
+                questions_for_class_subject = questions[class_name][subject]
+                if questions_for_class_subject:
+                    return render_template('student/exam.html', questions=questions_for_class_subject, subject=subject)
+                else:
+                    return "No questions found for the specified subject"
             else:
-                return "No questions found for the specified subject"
+                return "Subject not found in questions data."
         else:
             return "Unauthorized access to this subject"
     else:
@@ -214,42 +222,34 @@ def submit_exam():
 
 
 def calculate_score(user_answers, subject):
-    # Load the existing student data from the JSON file
-    global score
     students = load_student_data()
-
-    # Get the username from the session
     username = session.get('username')
+    score = 0  # Initialize the score
 
-    if username:
-        # Check if the username exists in the students data
-        if username in students:
-            student_data = students[username]
-            student_scores = student_data.get('scores', {})
+    if username in students:
+        student_data = students[username]
+        student_scores = student_data.get('scores', {})
 
-            # Load the questions for the specified subject from your JSON data
-            subject_data = questions.get(student_data['class'], {}).get(subject, {})
+        # Load the questions for the specified subject from your JSON data
+        subject_data = questions.get(student_data['class'], {}).get(subject, {})
 
-            # Initialize the score
-            score = 0
+        for question_id, question_data in subject_data.items():
+            user_answer = user_answers.get(f'answer_{question_id}')
+            correct_answer = question_data.get('correct_answer')
 
-            for question_id, question_data in subject_data.items():
-                user_answer = user_answers.get(f'answer_{question_id}')
-                correct_answer = question_data.get('correct_answer')
+            print(f"Question {question_id}: User's answer - {user_answer}, Correct answer - {correct_answer}")
 
-                if user_answer and user_answer[0] == correct_answer:
-                    score += 1
+            if user_answer and user_answer[0] == correct_answer:
+                score += 1
 
-            # Update the user's score for the specific subject
-            student_scores[subject] = score
+        print(f"Total score for {username} in {subject}: {score}")
 
-            # Update the student's data with the new scores
-            student_data['scores'] = student_scores
-            students[username] = student_data
+        student_scores[subject] = score
+        student_data['scores'] = student_scores
+        students[username] = student_data
 
-            # Write the updated data back to the JSON file
-            with open(students_json_path, 'w') as students_data_file:
-                json.dump(students, students_data_file, indent=4)
+        with open(students_json_path, 'w') as students_data_file:
+            json.dump(students, students_data_file, indent=4)
 
     return score
 
@@ -294,6 +294,8 @@ def save_score(username, subject, score):
     # Write the updated data back to the JSON file
     with open(students_json_path, 'w') as students_data_file:
         json.dump(students, students_data_file, indent=4)
+
+    print(f"Saved score for {username} in {subject}: {score}")  # Add this line
 
 
 @app.route('/student/logout')
@@ -364,15 +366,12 @@ def subject_scores(subject):
     return render_template('teacher/subject_scores.html', subject=subject, students=students_with_scores)
 
 
-@app.route('/teacher/manage_grades')
-def manage_grades():
+@app.route('/teacher/manage_cbt')
+def manage_cbt():
     # Load student data from the JSON file
     students = load_student_data()
 
-    return render_template('teacher/manage_grades.html', students=students)
-
-
-import json
+    return render_template('teacher/manage_cbt.html', students=students)
 
 
 @app.route('/submit_question', methods=['GET', 'POST'])
@@ -422,7 +421,7 @@ def submit_question():
         with open(questions_json_path, 'w') as questions_file:
             json.dump(questions, questions_file, indent=4)
 
-        return render_template('teacher/create_question.html', new_questions_data=new_questions_data)
+        return redirect(url_for('manage_cbt'))
 
     # If it's a GET request, display the create_question.html form
     return render_template('teacher/create_question.html')
@@ -432,6 +431,122 @@ def save_questions():
     # Save the updated question data to the JSON file
     with open(questions_json_path, 'w') as questions_file:
         json.dump(questions, questions_file, indent=4)
+
+
+def get_question_details(class_name, subject, question_id):
+    # Load the existing questions from the questions.json file
+    with open(questions_json_path, 'r') as questions_file:
+        questions = json.load(questions_file)
+
+    # Check if the class_name and subject exist in the questions data
+    if class_name in questions and subject in questions[class_name]:
+        question_data = questions[class_name][subject].get(question_id)
+
+        # Check if the question_id exists in the specified class and subject
+        if question_data:
+            return question_data
+
+    # Return None if the question details were not found
+    return None
+
+
+@app.route('/available_exams')
+def available_exams():
+    # Load your available exams data
+    exams_data = load_available_exams()
+
+    return render_template('teacher/available_exam.html', exams_data=exams_data)
+
+
+import json
+
+
+def load_available_exams():
+    # Load available exams data from 'questions.json' file
+    exams_data = {}
+
+    # Load questions data from the 'questions.json' file
+    with open('questions/questions.json', 'r') as questions_file:
+        questions = json.load(questions_file)
+
+    # Iterate through the questions data to organize it by class and subject
+    for class_name, class_data in questions.items():
+        exams_data[class_name] = {}
+        for subject, exams in class_data.items():
+            exams_data[class_name][subject] = {}
+            for exam_id, exam_name in exams.items():
+                exams_data[class_name][subject][exam_id] = exam_name
+
+    return exams_data
+
+
+# @app.route('/edit_questions/<class_name>/<subject>')
+# def edit_exam(class_name, subject):
+#     # Your edit exam logic goes here
+#     # ...
+#     return render_template('teacher/edit_questions.html', class_name=class_name, subject=subject,
+#                            questions_data=questions)
+
+
+@app.route('/delete_exam/<class_name>/<subject>')
+def delete_exam(class_name, subject):
+    # Load your questions JSON data
+    with open(questions_json_path, 'r') as questions_file:
+        questions = json.load(questions_file)
+
+    if class_name in questions and subject in questions[class_name]:
+        # Delete the subject data
+        del questions[class_name][subject]
+
+        # Save the updated data back to the JSON file
+        with open(questions_json_path, 'w') as questions_file:
+            json.dump(questions, questions_file, indent=4)
+
+        success_message = f"Subject '{subject}' in class '{class_name}' has been deleted."
+        flash(success_message, 'success')
+    else:
+        error_message = f"Subject '{subject}' in class '{class_name}' not found."
+        flash(error_message, 'error')
+
+    return redirect(url_for('available_exams'))
+
+
+@app.route('/edit_exam/<class_name>/<subject>', methods=['GET', 'POST'])
+def edit_exam(class_name, subject):
+    if request.method == 'POST':
+        # Handle form submission and save the edited questions
+        edited_questions_data = {}
+        for key, value in request.form.items():
+            if key.startswith('question_'):
+                question_id = key.replace('question_', '')
+                edited_questions_data[question_id] = {
+                    'question': request.form[f'question_{question_id}'],
+                    'options': request.form[f'options_{question_id}'].split(', '),
+                    'correct_answer': request.form[f'correct_answer_{question_id}']
+                }
+
+        # Update the questions for the specified class and subject
+        update_questions_for_class_subject(class_name, subject, edited_questions_data)
+
+        return redirect(url_for('available_exams'))
+
+    return render_template('teacher/edit_questions.html', class_name=class_name, subject=subject,
+                           questions_data=get_questions_for_class_subject(class_name, subject))
+
+
+def update_questions_for_class_subject(class_name, subject, edited_questions_data):
+    # Load the existing questions from the 'questions.json' file
+    with open(questions_json_path, 'r') as questions_file:
+        questions = json.load(questions_file)
+
+    # Check if the class_name and subject exist in the questions data
+    if class_name in questions and subject in questions[class_name]:
+        for question_id, edited_data in edited_questions_data.items():
+            questions[class_name][subject][question_id] = edited_data
+
+        # Save the updated questions data back to the 'questions.json' file
+        with open(questions_json_path, 'w') as questions_file:
+            json.dump(questions, questions_file, indent=4)
 
 
 if __name__ == '__main__':

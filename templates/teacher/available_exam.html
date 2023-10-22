@@ -1,0 +1,127 @@
+<!-- templates/available_exams.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Available Exams</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="container">
+        <h1>Available Exams</h1>
+       {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="flash-messages">
+            {% for message in messages %}
+                <p class="flash-message">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+        <div>
+            <label for="class-filter">Class:</label>
+            <select id="class-filter">
+                <option value="">All</option>
+                {% for class_name, subjects in exams_data.items() %}
+                    <option value="{{ class_name }}">{{ class_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="subject-filter">Subject:</label>
+            <select id="subject-filter">
+                <option value="">All</option>
+            </select>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Class</th>
+                    <th>Subject</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for class_name, subjects in exams_data.items() %}
+                    {% for subject, exams in subjects.items() %}
+                        <tr data-class="{{ class_name }}" data-subject="{{ subject }}">
+                            <td>{{ class_name }}</td>
+                            <td>{{ subject }}</td>
+                            <td>
+                                <a href="{{ url_for('edit_exam', class_name=class_name, subject=subject) }}">
+                                    Edit
+                                </a>
+                                <a href="{{ url_for('delete_exam', class_name=class_name, subject=subject) }}">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const classFilter = document.getElementById("class-filter");
+        const subjectFilter = document.getElementById("subject-filter");
+        const tableRows = document.querySelectorAll("tbody tr");
+
+        classFilter.addEventListener("change", populateSubjectFilter);
+        subjectFilter.addEventListener("change", filterTable);
+
+        function populateSubjectFilter() {
+            // Get the selected class
+            const selectedClass = classFilter.value;
+
+            // Clear the subject filter
+            subjectFilter.innerHTML = '<option value="">All</option>';
+
+            // Create a Set to store unique subjects
+            const uniqueSubjects = new Set();
+
+            // Iterate through the table rows and add subjects to the Set
+            tableRows.forEach(row => {
+                const rowClass = row.getAttribute("data-class");
+                const rowSubject = row.getAttribute("data-subject");
+
+                if (selectedClass === "" || selectedClass === rowClass) {
+                    uniqueSubjects.add(rowSubject);
+                }
+            });
+
+            // Populate the subject filter with unique subjects
+            uniqueSubjects.forEach(subject => {
+                const option = document.createElement("option");
+                option.value = subject;
+                option.textContent = subject;
+                subjectFilter.appendChild(option);
+            });
+
+            // Trigger table filtering
+            filterTable();
+        }
+
+        function filterTable() {
+            const selectedClass = classFilter.value;
+            const selectedSubject = subjectFilter.value;
+
+            tableRows.forEach(row => {
+                const rowClass = row.getAttribute("data-class");
+                const rowSubject = row.getAttribute("data-subject");
+
+                const classMatch = selectedClass === "" || selectedClass === rowClass;
+                const subjectMatch = selectedSubject === "" || selectedSubject === rowSubject;
+
+                if (classMatch && subjectMatch) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

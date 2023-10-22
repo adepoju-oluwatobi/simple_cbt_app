@@ -1,0 +1,29 @@
+<!-- templates/edit_questions.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Edit Questions</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="container">
+        <h1>Edit Questions for {{ class_name }} - {{ subject }}</h1>
+        <form method="POST" action="{{ url_for('edit_exam', class_name=class_name, subject=subject) }}">
+            {% for question_id, question_data in questions_data.items() %}
+                <div class="question">
+                    <label for="question_{{ question_id }}">Question {{ question_id }}:</label>
+                    <textarea id="question_{{ question_id }}" name="question_{{ question_id }}" rows="3">{{ question_data.question }}</textarea>
+                    <label for="options_{{ question_id }}">Options:</label>
+                    <input type="text" id="options_{{ question_id }}" name="options_{{ question_id }}" value="{{ question_data.options|join(', ') }}">
+                    <label for="correct_answer_{{ question_id }}">Correct Answer:</label>
+                    <input type="text" id="correct_answer_{{ question_id }}" name="correct_answer_{{ question_id }}" value="{{ question_data.correct_answer }}">
+                </div>
+            {% endfor %}
+            <input type="submit" value="Save Changes">
+        </form>
+    </div>
+</body>
+</html>

@@ -7,9 +7,11 @@
         "parent_phone_no": "08156663878",
         "scores": {
             "Geography": 1,
-            "Science": 1,
+            "Science": 3,
             "Home Econs": 0,
-            "French": 0
+            "French": 0,
+            "ICT": 0,
+            "Visual Arts": 1
         }
     },
     "Showemimo": {
@@ -21,18 +23,28 @@
         "score": 1,
         "scores": {
             "Science": 2,
-            "Geography": 1
+            "Geography": 0,
+            "Visual Arts": 1,
+            "PHE": 0,
+            "ICT": 0,
+            "Basic Tech": 0,
+            "French": 2,
+            "Physics": 0,
+            "Home Econs": 0,
+            "computer": 1,
+            "Agric": 0
         }
     },
     "Femi": {
         "name": "Femi Adeoye",
         "password": "femolala",
-        "class": "Year 7C",
+        "class": "Year 8G",
         "score": 2,
         "scores": {
             "Science": 3,
-            "Geography": 0,
-            "computer": 1
+            "Geography": 1,
+            "computer": 1,
+            "Visual Arts": 1
         }
     }
 }

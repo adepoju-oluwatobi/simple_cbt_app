@@ -1,52 +1,20 @@
 {
     "Year 8G": {
-        "Geography": {
+        "computer": {
             "1": {
-                "question": "What is the capital of France?",
+                "question": "which of the following is an input device",
                 "options": [
-                    "London",
-                    "Berlin",
-                    "Madrid",
-                    "Paris"
+                    "mouse",
+                    " speaker",
+                    " monitor",
+                    " joystick"
                 ],
-                "correct_answer": "Paris"
+                "correct_answer": "mouse"
             }
         },
-        "Science": {
+        "Agric": {
             "1": {
-                "question": "Which planet is known as the Red Planet?",
-                "options": [
-                    "Earth",
-                    "Mars",
-                    "Venus",
-                    "Jupiter"
-                ],
-                "correct_answer": "Mars"
-            },
-            "2": {
-                "question": "Another Science question",
-                "options": [
-                    "Option A",
-                    "Option B",
-                    "Option C",
-                    "Option D"
-                ],
-                "correct_answer": "Option A"
-            },
-            "3": {
-                "question": "Yet another Science question",
-                "options": [
-                    "Option X",
-                    "Option Y",
-                    "Option Z",
-                    "Option W"
-                ],
-                "correct_answer": "Option Z"
-            }
-        },
-        "Yoruba": {
-            "1": {
-                "question": "What causes pain in the left back pelvic area ",
+                "question": "What is agriculture?",
                 "options": [
                     "a",
                     "b",
@@ -55,166 +23,8 @@
                 ],
                 "correct_answer": "c"
             }
-        },
-        "French": {
-            "1": {
-                "question": "what is a dog",
-                "options": [
-                    "a",
-                    "f",
-                    "g",
-                    "t"
-                ],
-                "correct_answer": "a"
-            },
-            "2": {
-                "question": "what is a dog",
-                "options": [
-                    "a",
-                    "f",
-                    "g",
-                    "t"
-                ],
-                "correct_answer": "a"
-            }
-        },
-        "Home Econs": {
-            "1": {
-                "question": "what is a dog",
-                "options": [
-                    "a",
-                    "f",
-                    "g",
-                    "  t"
-                ],
-                "correct_answer": "t"
-            }
         }
     },
-    "Year 7C": {
-        "Geography": {
-            "1": {
-                "question": "What is the capital of France?",
-                "options": [
-                    "London",
-                    "Berlin",
-                    "Madrid",
-                    "Paris"
-                ],
-                "correct_answer": "Paris"
-            }
-        },
-        "Science": {
-            "1": {
-                "question": "Which planet is known as the Red Planet?",
-                "options": [
-                    "Earth",
-                    "Mars",
-                    "Venus",
-                    "Jupiter"
-                ],
-                "correct_answer": "Mars"
-            },
-            "2": {
-                "question": "Another Science question",
-                "options": [
-                    "Option A",
-                    "Option B",
-                    "Option C",
-                    "Option D"
-                ],
-                "correct_answer": "Option A"
-            },
-            "3": {
-                "question": "Yet another Science question",
-                "options": [
-                    "Option X",
-                    "Option Y",
-                    "Option Z",
-                    "Option W"
-                ],
-                "correct_answer": "Option Z"
-            }
-        },
-        "computer": {
-            "1": {
-                "question": "What is the full meaning of RAM?",
-                "options": [
-                    "read only memory",
-                    "read once matter",
-                    "Madrid",
-                    "Paris"
-                ],
-                "correct_answer": "read only memory"
-            }
-        },
-        "Yoruba": {
-            "1": {
-                "question": "What causes pain in the left back pelvic area ",
-                "options": [
-                    "a",
-                    "b",
-                    "c",
-                    "d"
-                ],
-                "correct_answer": "d"
-            },
-            "2": {
-                "question": "What causes pain in the left back pelvic area ",
-                "options": [
-                    "a",
-                    "b",
-                    "c",
-                    "d"
-                ],
-                "correct_answer": "d"
-            }
-        }
-    },
-    "Year 9C": {
-        "Geography": {
-            "1": {
-                "question": "What is the capital of France?",
-                "options": [
-                    "London",
-                    "Berlin",
-                    "Madrid",
-                    "Paris"
-                ],
-                "correct_answer": "Paris"
-            }
-        },
-        "Science": {
-            "1": {
-                "question": "Which planet is known as the Red Planet?",
-                "options": [
-                    "Earth",
-                    "Mars",
-                    "Venus",
-                    "Jupiter"
-                ],
-                "correct_answer": "Mars"
-            },
-            "2": {
-                "question": "Another Science question",
-                "options": [
-                    "Option A",
-                    "Option B",
-                    "Option C",
-                    "Option D"
-                ],
-                "correct_answer": "Option A"
-            },
-            "3": {
-                "question": "Yet another Science question",
-                "options": [
-                    "Option X",
-                    "Option Y",
-                    "Option Z",
-                    "Option W"
-                ],
-                "correct_answer": "Option Z"
-            }
-        }
-    }
+    "Year 7C": {},
+    "Year 9C": {}
 }
