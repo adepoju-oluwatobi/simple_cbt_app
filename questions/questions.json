@@ -23,6 +23,18 @@
                 ],
                 "correct_answer": "a"
             }
+        },
+        "Physics": {
+            "1": {
+                "question": "What is force?",
+                "options": [
+                    "a",
+                    "b",
+                    "c",
+                    "d"
+                ],
+                "correct_answer": "a"
+            }
         }
     },
     "Year 7C": {
