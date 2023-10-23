@@ -1,28 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
     <title>Login</title>
 </head>
+
 <body>
-{% include 'header.html' %}
     <div class="container">
-        <h1>Login</h1>
-        <form method="POST">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <br><br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <br><br>
-            <input type="submit" value="Login">
-            <a href="/">Back</a>
-        </form>
-        {% if error %}
-            <p class="error">{{ error }}</p>
-        {% endif %}
+        <section class="one">
+            <div>
+                <h3>Unlimited Possibilities Starts Here</h3>
+                <p>Login to explore your account</p>
+            </div>
+        </section>
+        <section class="two">
+            <div class="form-container">
+                <div class="heading">
+                    <h1>Login</h1>
+                    <p>Enter your details below</p>
+                </div>
+                <form method="POST">
+                    <div class="username">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" placeholder="username" required>
+                    </div>
+                    <div class="password">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" placeholder="password" required>
+                    </div>
+                    <div class="extras">
+                        <div>
+                            <input type="checkbox">
+                            <label>Remember Me</label>
+                        </div>
+                        <p><a href="">Forgotten Password?</a></p>
+                    </div>
+                    <input class="submit-btn" type="submit" value="Login">
+                    <div class="error">
+                        {% if error %}
+                        <p class="error">{{ error }}</p>
+                        {% endif %}
+                    </div>
+                    <a href="/">Back</a>
+                </form>
+            </div>
+        </section>
     </div>
 </body>
 </html>

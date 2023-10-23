@@ -2,164 +2,97 @@
     padding: 0;
     margin: 0;
 }
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
-.container {
-    background-color: #fff;
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    font-size: 24px;
-}
-
-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="radio"] {
+.container{
+    display: flex;
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    height: 100vh;
+    font-family: 'Inter', sans-serif;
 }
-form{
-    padding: 20px;
+.one{
+    background: url('../static/images/login-img.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 50%;
+    height:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-input[type="submit"] {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-}
-
-a {
-    text-decoration: none;
-    color: #007BFF;
-}
-
-.error {
-    color: #FF0000;
-    font-weight: bold;
-}
-/* style.css */
-
-/* Apply a basic style to the table */
-table {
-    border-collapse: collapse;
-    width: 100%;
-    border: 1px solid #ddd;
-    padding: 10px;
-}
-
-/* Style table headers */
-th {
-    background-color: #0077b6;
-    color: #fff;
-    font-weight: bold;
-    padding: 10px;
-    text-align: left;
-}
-
-/* Style table rows */
-tr {
-    border-bottom: 1px solid #ddd;
-}
-
-/* Style table cells */
-td {
-    padding: 10px;
-}
-
-/* Alternate row background color for better readability */
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-.title {
-    font-size: 24px;
-    color: #333;
-}
-
-.question_container {
-    list-style-type: decimal;
-    padding-left: 20px;
-}
-
-.question {
-    margin-bottom: 20px;
-    font-size: 18px;
-    color: #333;
-}
-
-.options {
-    list-style-type: disc;
-    padding-left: 20px;
-}
-
-label {
-    display: block;
-    font-size: 16px;
-    color: #555;
-}
-
-input[type="radio"] {
-    margin-right: 5px;
-}
-
-input[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-input[type="submit"]:hover {
-    background-color: #0056b3;
-}
-/* Add this CSS to your style.css file */
-.sidebar {
-    width: 250px;
-    height: auto;
-    position: fixed;
-    top: 100px;
+.one::before {
+    content: '';
+    position: absolute;
+    top: 0;
     left: 0;
-    background-color: #333;
-    padding: 20px;
-    color: #fff;
+    width: 50%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
-
-.sidebar a {
+section.one div{
+    z-index:999;
+}
+.one h3{
+    width: 10ch;
+    color: white;
+    font-size: 52px;
+}
+.one p{
+    color: #F8C82A;
+}
+.two{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-container, form{
+    width: 70%;
+    margin: auto;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.username, .password{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.username input, .password input{
+    width: 90%;
+    padding: 18px;
+    border: none;
+    border-radius: 10px;
+    background: #F1EFEF;
+}
+.username label, .password label{
+    font-weight: bold;
+}
+.extras{
+    display: flex;
+    justify-content: space-between;
+}
+.extras a{
     text-decoration: none;
-    display: block;
-    color: #fff;
+    color: black;
 }
-
-.sidebar a:hover {
-    background-color: #444;
+.extras input{
+    cursor: pointer;
 }
-
-/* Customize additional styles as needed */
-
-
+.heading{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.submit-btn{
+    padding: 12px;
+    border: none;
+    background: #F8C82A;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.error p{
+    color: red;
+    text-align: center;
+}

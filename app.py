@@ -70,7 +70,7 @@ def student_login():
 
             return redirect(url_for('student_dashboard'))
 
-        return render_template('student/login.html', error="Invalid credentials", user_authenticated=user_authenticated, user_role=user_role)
+        return render_template('student/login.html', error="Invalid credentials, check your login details and try again.", user_authenticated=user_authenticated, user_role=user_role)
 
     return render_template('student/login.html', user_authenticated=user_authenticated, user_role=user_role)
 
