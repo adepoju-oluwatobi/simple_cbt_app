@@ -21,10 +21,23 @@
                     "c",
                     "d"
                 ],
-                "correct_answer": "c"
+                "correct_answer": "a"
             }
         }
     },
-    "Year 7C": {},
+    "Year 7C": {
+        "Yoruba": {
+            "1": {
+                "question": "Kini ede yoruba",
+                "options": [
+                    "a",
+                    "b",
+                    "c",
+                    "d"
+                ],
+                "correct_answer": "a"
+            }
+        }
+    },
     "Year 9C": {}
 }

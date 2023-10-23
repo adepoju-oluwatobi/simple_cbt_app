@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Confirm Deletion</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="container">
+        <h1>Confirm Deletion</h1>
+        <p>Are you sure you want to delete the student with the username: {{ username }}?</p>
+        <form method="POST">
+            <button type="submit" name="confirm" value="yes">Yes, delete</button>
+            <a href="{{ url_for('manage_all_students') }}">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

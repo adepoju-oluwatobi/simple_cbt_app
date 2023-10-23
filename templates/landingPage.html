@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='hero.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
     <title>Landing Page</title>
 </head>
+
 <body>
-{% include 'header.html' %}
-    <div class="container">
-        <h1>This is a Landing page</h1>
-        <a href="login">
-            <input type="submit" value="Login">
-        </a>
+    {% include 'header.html' %}
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Digitalized Educational Software</h1>
+            <p>Easy and Convinient to use</p>
+            <button>Get Started</button>
+        </div>
     </div>
 </body>
+
 </html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Add New Student</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="container">
+        <h1>Add New Student</h1>
+        <form method="POST">
+            <label for="parent_name">Parent's Name:</label>
+            <input type="text" id="parent_name" name="parent_name" required><br>
+
+            <label for="name">Student's Name:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="class">Class:</label>
+            <input type="text" id="class" name="class" required><br>
+
+            <label for="class">Password:</label>
+            <input type="text" id="password" name="password" required><br>
+
+            <input type="submit" value="Add Student">
+        </form>
+        <p><a href="/admin/manage_student">Back to Manage Students</a></p>
+    </div>
+</body>
+</html>

@@ -15,12 +15,17 @@
                     <li><a href="/student/login">Student Login</a></li>
                     <li><a href="/teacher/login">Teachers Login</a></li>
                     <li><a href="/parent/login">Parent Login</a></li>
-                    <li><a href="/Admin/login">Admin Login</a></li>
+                    <li><a href="/admin/login">Admin Login</a></li>
                 </ul>
             </li>
+            {% if user_authenticated %}
+            <li><a href="/student/dashboard">Dashboard</a></li>
+            {% endif %}
         </ul>
     </nav>
-    <!-- Add this script at the end of your HTML body -->
+</header>
+
+<!-- Add this script at the end of your HTML body -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const loginDropdown = document.getElementById("login-dropdown");
@@ -39,4 +44,3 @@
         });
     });
 </script>
-</header>

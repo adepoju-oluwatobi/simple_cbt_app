@@ -23,7 +23,7 @@ body {
 
 .questions_container {
     list-style-type: none;
-    padding: 0;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;

@@ -1,50 +1,28 @@
 {
-    "Atoe": {
-        "name": "Atoe Bright",
-        "password": "atoe",
-        "class": "Year 8G",
-        "parent_name": "Mr and Mrs ....",
-        "parent_phone_no": "08156663878",
-        "scores": {
-            "Geography": 1,
-            "Science": 3,
-            "Home Econs": 0,
-            "French": 0,
-            "ICT": 0,
-            "Visual Arts": 1
-        }
-    },
-    "Showemimo": {
-        "name": "Showemimo Olufela",
-        "password": "Showemimo",
-        "class": "Year 8G",
-        "parent_name": "Mr and Mrs Showemimo",
-        "parent_phone_no": "08156663877",
-        "score": 1,
-        "scores": {
-            "Science": 2,
-            "Geography": 0,
-            "Visual Arts": 1,
-            "PHE": 0,
-            "ICT": 0,
-            "Basic Tech": 0,
-            "French": 2,
-            "Physics": 0,
-            "Home Econs": 0,
-            "computer": 1,
-            "Agric": 0
-        }
-    },
     "Femi": {
-        "name": "Femi Adeoye",
+        "name": "Femi Adeoye agrii",
+        "parent_name": "Mr and Mrs Femi",
         "password": "femolala",
         "class": "Year 8G",
-        "score": 2,
+        "score": "2",
         "scores": {
             "Science": 3,
             "Geography": 1,
             "computer": 1,
             "Visual Arts": 1
         }
+    },
+    "pius8831": {
+        "parent_name": "Mr and Mrs Pius",
+        "name": "Pius Marvellous",
+        "class": "Year 8G",
+        "score": 0
+    },
+    "ugbo3944": {
+        "parent_name": "Mr and Mrs Ugbo",
+        "name": "Ugbo Adorabl",
+        "class": "Year 8G",
+        "password": "adorable123",
+        "score": 0
     }
 }
