@@ -1,6 +1,6 @@
 {
     "Femi": {
-        "name": "Femi Adeoye agrii",
+        "name": "Femi Adeoye",
         "parent_name": "Mr and Mrs Femi",
         "password": "femolala",
         "class": "Year 8G",
@@ -10,7 +10,8 @@
             "Geography": 1,
             "computer": 1,
             "Visual Arts": 1,
-            "Physics": 0
+            "Physics": 1,
+            "Agric": 1
         }
     },
     "pius8831": {
@@ -19,10 +20,10 @@
         "class": "Year 8G",
         "score": 0
     },
-    "ugbo3944": {
+    "ugbo6189": {
         "parent_name": "Mr and Mrs Ugbo",
-        "name": "Ugbo Adorabl",
-        "class": "Year 8G",
+        "name": "Ugbo Adorable",
+        "class": "Year 8GRAHAM",
         "password": "adorable123",
         "score": 0
     }

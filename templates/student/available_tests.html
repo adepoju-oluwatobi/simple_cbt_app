@@ -15,7 +15,7 @@
         <ul>
             {% for subject in subjects %}
                 <li>
-                    <a href="{{ url_for('start_exam', class_name=student_class, subject=subject) }}">
+                    <a href="{{ url_for('student_routes.start_exam', class_name=student_class, subject=subject) }}">
                         {{ subject }}
                     </a>
                 </li>

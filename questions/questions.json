@@ -1,17 +1,5 @@
 {
     "Year 8G": {
-        "computer": {
-            "1": {
-                "question": "which of the following is an input device",
-                "options": [
-                    "mouse",
-                    " speaker",
-                    " monitor",
-                    " joystick"
-                ],
-                "correct_answer": "mouse"
-            }
-        },
         "Agric": {
             "1": {
                 "question": "What is agriculture?",
@@ -27,6 +15,18 @@
         "Physics": {
             "1": {
                 "question": "What is force?",
+                "options": [
+                    "a",
+                    "b",
+                    "c",
+                    "d"
+                ],
+                "correct_answer": "a"
+            }
+        },
+        "New subject": {
+            "1": {
+                "question": "what is a dog",
                 "options": [
                     "a",
                     "b",

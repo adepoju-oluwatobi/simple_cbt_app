@@ -10,7 +10,7 @@
     {% include 'header.html' %}
     <div class="container">
         <h1>Edit Student</h1>
-        <form method="POST" action="/save_edited_student/{{ username }}">
+        <form method="POST" action="/admin/save_edited_student/{{ username }}">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" value="{{ username }}" disabled>
             

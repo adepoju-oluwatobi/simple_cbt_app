@@ -11,8 +11,8 @@
     {% include 'header.html' %}
    <div class="container">
         <h1>Manage Cbt</h1>
-            <a href="{{ url_for('submit_question') }}">Create Question</a>
-            <a href="{{ url_for('available_exams') }}">Available Exams</a>  <!-- Add this link -->
+            <a href="{{ url_for('teacher_routes.submit_question') }}">Create Question</a>
+            <a href="{{ url_for('teacher_routes.available_exams') }}">Available Exams</a>  <!-- Add this link -->
     <table>
         <thead>
             <tr>
@@ -34,7 +34,7 @@
                                 {% endfor %}
                                 {% for subject_info in subjects_taken_by_class[student.class] %}
                                     <li>
-                                        <a href="{{ url_for('subject_scores', subject=subject_info.subject, class=student.class) }}">
+                                        <a href="{{ url_for('teacher_routes.subject_scores', subject=subject_info.subject, class=student.class) }}">
                                             {{ subject_info.subject }}
                                         </a>
                                     </li>

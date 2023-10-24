@@ -13,7 +13,7 @@
         <p>Are you sure you want to delete the student with the username: {{ username }}?</p>
         <form method="POST">
             <button type="submit" name="confirm" value="yes">Yes, delete</button>
-            <a href="{{ url_for('manage_all_students') }}">Cancel</a>
+            <a href="{{ url_for('admin_routes.manage_all_students') }}">Cancel</a>
         </form>
     </div>
 </body>

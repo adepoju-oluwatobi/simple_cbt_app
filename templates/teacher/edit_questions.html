@@ -11,7 +11,7 @@
     {% include 'header.html' %}
     <div class="container">
         <h1>Edit Questions for {{ class_name }} - {{ subject }}</h1>
-        <form method="POST" action="{{ url_for('edit_exam', class_name=class_name, subject=subject) }}">
+        <form method="POST" action="{{ url_for('teacher_routes.edit_exam', class_name=class_name, subject=subject) }}">
             {% for question_id, question_data in questions_data.items() %}
                 <div class="question">
                     <label for="question_{{ question_id }}">Question {{ question_id }}:</label>
