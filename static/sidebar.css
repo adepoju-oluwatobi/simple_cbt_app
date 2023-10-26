@@ -6,7 +6,7 @@ img{
 .sidebar {
     font-family: 'Inter', sans-serif;
     width: 250px; /* Adjust the width as needed */
-    background-color: #9c9c9c; /* Background color of the sidebar */
+    background-color: #800020; /* Background color of the sidebar */
     color: black; /* Text color */
     position: fixed; /* Fixed position so it stays visible */
     top: 0; /* Position at the top */
@@ -20,6 +20,7 @@ img{
     width: 100%;
     padding-left: 30px;
     margin-left: 0;
+    padding-top: 20px;
 }
 
 .sidebar-nav li {
@@ -34,9 +35,9 @@ img{
     gap: 20px;
 }
 
-.sidebar-nav a {
+.sidebar-nav a, .sidebar-nav .menu {
     text-decoration: none; /* Remove underlines from links */
-    color: black;
+    color: white;
     padding: 10px;
     display: block; /* Make links full width */
     transition: background-color 0.3s; /* Smooth hover transition */
@@ -49,6 +50,7 @@ img{
     margin-right: -10px; /* Extend background to the right */
     border: none;
     border-radius: 10px 0px 0px 10px;
+    color: black;
 }
 
 .dropdown .cbt{
@@ -57,15 +59,22 @@ img{
     gap: 50px;
 }
 
-.dropdown-content{
-    display: flex;
+.dropdown .dropdown-content{
+    display: none;
     flex-direction: column;
     width: 100%;
     margin-right: 0;
+    padding-left: 50px;
 }
 .dropdown-content a{
     border-radius: 10px;
+    width: 100%;
+    
 }
 .dropdown-content a:hover{
     border-radius: 10px;
+    background: white;
+}
+.show{
+    display: flex;
 }

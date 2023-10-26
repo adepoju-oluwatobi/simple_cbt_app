@@ -9,8 +9,11 @@
 <body>
 {% include 'student/sidebar.html' %}
     <div class="container">
-        <p class="welcome">Welcome back <span class="name">{{ student_name }}</span> of class ({{ student_class }})</p>
-        <p><a href="/student/logout">Logout</a></p>
+        {% include 'student/header.html' %}
+        <div class="content">
+            <p class="welcome">Welcome back <span class="name">{{ student_name }}</span> of class ({{ student_class }})</p>
+            <p><a href="/student/logout">Logout</a></p>
+        </div>
     </div>
 </body>
 </html>

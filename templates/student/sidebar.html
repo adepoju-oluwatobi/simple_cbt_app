@@ -1,19 +1,26 @@
 <!-- sidebar.html -->
 <head>
-	<link rel="stylesheet" href="{{ url_for('static', filename='sidebar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sidebar.css') }}">
 </head>
 <aside class="sidebar">
     <ul class="sidebar-nav">
         <li>
+            <p class="menu">
+                <div>
+                    <img src="../../static/images/menu.svg" alt="">
+                </div>
+            </p>
+        </li>
+        <li>
             <a href="/">
-            <div>
-                <img src="../../static/images/home.svg" alt="">
-                <p>Home</p>
-            </div>
+                <div>
+                    <img src="../../static/images/home.svg" alt="">
+                    <p>Home</p>
+                </div>
             </a>
         </li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-btn">
+        <li class="dropdown" onclick="toggleContent()">
+            <a href="#" class="dropdown-btn" id="cbt-dropdown">
                 <div>
                     <img src="../../static/images/airplay.svg" alt="">
                     <div class="cbt">
@@ -22,7 +29,7 @@
                     </div>
                 </div>
             </a>
-            <div class="dropdown-content">
+            <div class="dropdown-content" id="cbt-dropdown-content" style="display: none;">
                 <a href="/student/available_tests">Take Test</a>
                 <a href="#">Test History</a>
                 <a href="#">Practice Test</a>
@@ -30,37 +37,32 @@
         </li>
         <li>
             <a href="#">
-            <div>
-                <img src="../../static/images/book-open.svg" alt="">
-                <p>Assignment</p>
-            </div>
+                <div>
+                    <img src="../../static/images/book-open.svg" alt="">
+                    <p>Assignment</p>
+                </div>
             </a>
         </li>
         <li>
             <a href="#">
-            <div>
-                <img src="../../static/images/users.svg" alt="">
-                <p>Virtual Class</p>
-            </div>
+                <div>
+                    <img src="../../static/images/users.svg" alt="">
+                    <p>Virtual Class</p>
+                </div>
             </a>
         </li>
         <!-- Add more links as needed -->
     </ul>
 </aside>
 <script>
-    const dropdownBtn = document.querySelector('.dropdown-btn');
-    const dropdownContent = document.querySelector('.dropdown-content');
+    
 
-    dropdownBtn.addEventListener('click', () => {
-        dropdownContent.classList.toggle('show');
-    });
-
-    // Close the dropdown when clicking outside of it
-    window.addEventListener('click', (event) => {
-        if (!event.target.matches('.dropdown-btn')) {
-            if (dropdownContent.classList.contains('show')) {
-                dropdownContent.classList.remove('show');
-            }
+    function toggleContent() {
+        const element = document.getElementById("cbt-dropdown-content");
+        if (element.style.display == "none"){
+            element.style.display = "flex"
+        } else {
+            element.style.display = "none"
         }
-    });
+    }
 </script>
