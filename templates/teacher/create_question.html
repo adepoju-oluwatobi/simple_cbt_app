@@ -8,7 +8,7 @@
     {% include 'header.html' %}
     <div class="container">
         <h1>Create New Questions</h1>
-        <form method="POST" action="{{ url_for('teacher_routes.submit_question') }}">
+        <form method="POST" action="{{ url_for('teacher_routes.submit_exam') }}">
             <label for="class">Class:</label>
             <select id="class" name="class" required>
                 <option value="Year 8G">Year 8G</option>
@@ -20,11 +20,20 @@
             <label for="subject">Subject:</label>
             <input type="text" id="subject" name="subject" required>
 
+            <label for="date">Date:</label>
+            <input type="text" id="date" name="date" required>
+
+            <label for="time">Time:</label>
+            <input type="text" id="time" name="time" required>
+
+            <label for="duration">Duration:</label>
+            <input type="text" id="duration" name="duration" required>
+
             <label for="num_questions">Number of Questions to Create:</label>
             <input type="number" id="num_questions" name="num_questions" required>
 
             <div id="questions-container">
-                <!-- This div will contain the dynamically created questions and options fields -->
+                <!-- This div will contain the dynamically created questions, options, and correct answer fields -->
             </div>
 
             <button type="submit">Submit</button>
@@ -32,7 +41,7 @@
     </div>
 
     <script>
-        // JavaScript code to create question and options fields dynamically
+        // JavaScript code to create question, options, and correct answer fields dynamically
         document.addEventListener('DOMContentLoaded', function () {
             const numQuestionsInput = document.getElementById('num_questions');
             const questionsContainer = document.getElementById('questions-container');
@@ -66,7 +75,7 @@
                     correctAnswerInput.name = `correct_answer_${i}`;
                     correctAnswerInput.required = true;
 
-                    // Append question and options fields to the container
+                    // Append question, options, and correct answer fields to the container
                     questionsContainer.appendChild(questionLabel);
                     questionsContainer.appendChild(questionInput);
                     questionsContainer.appendChild(optionsLabel);

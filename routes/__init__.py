@@ -13,6 +13,8 @@ questions_json_path = os.path.join(current_directory, '../questions/questions.js
 # Declare a dictionary to store teacher-student assignments
 teacher_student_assignments = {}
 
+# questions = {}
+
 # Load sample user data (student.json) and question data (questions.json)
 with open(students_json_path, 'r') as students_data:
     students = json.load(students_data)

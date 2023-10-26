@@ -1,0 +1,66 @@
+<!-- sidebar.html -->
+<head>
+	<link rel="stylesheet" href="{{ url_for('static', filename='sidebar.css') }}">
+</head>
+<aside class="sidebar">
+    <ul class="sidebar-nav">
+        <li>
+            <a href="/">
+            <div>
+                <img src="../../static/images/home.svg" alt="">
+                <p>Home</p>
+            </div>
+            </a>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-btn">
+                <div>
+                    <img src="../../static/images/airplay.svg" alt="">
+                    <div class="cbt">
+                        <p>CBT</p>
+                        <img src="../../static/images/chevron-up.svg" alt="">
+                    </div>
+                </div>
+            </a>
+            <div class="dropdown-content">
+                <a href="/student/available_tests">Take Test</a>
+                <a href="#">Test History</a>
+                <a href="#">Practice Test</a>
+            </div>
+        </li>
+        <li>
+            <a href="#">
+            <div>
+                <img src="../../static/images/book-open.svg" alt="">
+                <p>Assignment</p>
+            </div>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            <div>
+                <img src="../../static/images/users.svg" alt="">
+                <p>Virtual Class</p>
+            </div>
+            </a>
+        </li>
+        <!-- Add more links as needed -->
+    </ul>
+</aside>
+<script>
+    const dropdownBtn = document.querySelector('.dropdown-btn');
+    const dropdownContent = document.querySelector('.dropdown-content');
+
+    dropdownBtn.addEventListener('click', () => {
+        dropdownContent.classList.toggle('show');
+    });
+
+    // Close the dropdown when clicking outside of it
+    window.addEventListener('click', (event) => {
+        if (!event.target.matches('.dropdown-btn')) {
+            if (dropdownContent.classList.contains('show')) {
+                dropdownContent.classList.remove('show');
+            }
+        }
+    });
+</script>

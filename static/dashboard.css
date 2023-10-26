@@ -1,0 +1,15 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.container {
+    margin-left: 250px; /* Adjust the margin to leave space for the sidebar */
+    padding: 20px; /* Add some padding to the container */
+    font-family: 'Inter', sans-serif;
+}
+.welcome{
+    font-weight: bold;
+}
+.name{
+    color: #808000;
+}

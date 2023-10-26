@@ -59,16 +59,25 @@ def available_tests():
     if 'username' in session:
         username = session['username']
         student_data = students.get(username, {})
-        student_class = student_data.get('class', '')  # Get the student's class from the session
+        student_class = student_data.get('class', '')
 
         # Load your questions JSON data
-        with open('questions/questions.json', 'r') as question_file:
-            all_questions = json.load(question_file)
+        all_questions = load_questions()
 
         # Filter questions based on the student's class
-        class_questions = all_questions.get(student_class, {})  # Assumes class names match keys in questions.json
+        class_questions = all_questions.get(student_class, {})
 
-        return render_template('/student/available_tests.html', subjects=class_questions.keys(),
+        # Extract the test data (date, time, duration) for each subject
+        test_data = {
+            subject: {
+                "date": subject_data.get("date"),
+                "time": subject_data.get("time"),
+                "duration": subject_data.get("duration")
+            }
+            for subject, subject_data in class_questions.items()
+        }
+
+        return render_template('student/available_tests.html', subjects=class_questions.keys(), test_data=test_data,
                                student_class=student_class)
 
     return redirect(url_for('student/login'))
@@ -91,13 +100,21 @@ def start_exam(class_name, subject):
         # Check if the student's class matches the specified class_name
         if student_class == class_name:
             # Load questions from the JSON file
-            question = load_questions()
+            all_questions = load_questions()
 
             # Check if the subject exists in the questions data
-            if class_name in question and subject in question[class_name]:
-                questions_for_class_subject = question[class_name][subject]
+            if class_name in all_questions and subject in all_questions[class_name]:
+                subject_data = all_questions[class_name][subject]
+
+                # Extract test data: date, time, duration, and questions
+                test_date = subject_data.get("date")
+                test_time = subject_data.get("time")
+                test_duration = subject_data.get("duration")
+                questions_for_class_subject = subject_data.get("questions")
+
                 if questions_for_class_subject:
-                    return render_template('student/exam.html', questions=questions_for_class_subject, subject=subject)
+                    return render_template('student/exam.html', questions=questions_for_class_subject, subject=subject,
+                                           test_date=test_date, test_time=test_time, test_duration=test_duration)
                 else:
                     return "No questions found for the specified subject"
             else:
@@ -115,14 +132,21 @@ def submit_exam():
             if 'exam_submission' in request.form and request.form['exam_submission'] == '1':
                 subject = request.form['subject']
                 user_answers = request.form.to_dict(flat=False)
+
+                # Calculate the score for the exam
                 score = calculate_score(user_answers, subject)
+
+                # Save the score to the session
                 session['score'] = score
 
                 # Save the score to the JSON file
                 save_score(session['username'], subject, score)
-                print(score)
-                return redirect(url_for('student_routes.show_score', subject=subject))
 
+                return redirect(url_for('student_routes.show_score', subject=subject))
+            else:
+                return "Invalid exam submission. Please try again."
+
+    # Redirect to the login page if the user is not logged in
     return redirect(url_for('student_routes.student_login'))
 
 
@@ -143,9 +167,9 @@ def calculate_score(user_answers, subject):
         student_scores = student_data.get('scores', {})
 
         # Load the questions for the specified subject from your JSON data
-        subject_data = questions.get(student_data['class'], {}).get(subject, {})
+        subject_data = load_questions().get(student_data['class'], {}).get(subject, {})
 
-        for question_id, question_data in subject_data.items():
+        for question_id, question_data in subject_data.get("questions", {}).items():
             user_answer = user_answers.get(f'answer_{question_id}')
             correct_answer = question_data.get('correct_answer')
 
@@ -164,6 +188,7 @@ def calculate_score(user_answers, subject):
             json.dump(student, students_data_file, indent=4)
 
     return score
+
 
 
 @student_routes.route('/show_score/<subject>')

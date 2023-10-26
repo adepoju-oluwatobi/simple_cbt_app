@@ -1,55 +1,74 @@
 {
     "Year 8G": {
         "Agric": {
-            "1": {
-                "question": "What is agriculture?",
-                "options": [
-                    "a",
-                    "b",
-                    "c",
-                    "d"
-                ],
-                "correct_answer": "a"
+            "date": "2023-10-04",
+            "time": "10:27",
+            "duration": "1 hour",
+            "questions": {
+                "1": {
+                    "question": "What is agriculture?",
+                    "options": [
+                        "a",
+                        "b",
+                        "c",
+                        "d"
+                    ],
+                    "correct_answer": "a"
+                }
             }
         },
         "Physics": {
-            "1": {
-                "question": "What is force?",
-                "options": [
-                    "a",
-                    "b",
-                    "c",
-                    "d"
-                ],
-                "correct_answer": "a"
+            "date": "October 25, 2023",
+            "time": "11:00 AM",
+            "duration": "1.5 hours",
+            "questions": {
+                "1": {
+                    "question": "What is force?",
+                    "options": [
+                        "a",
+                        "b",
+                        "c",
+                        "d"
+                    ],
+                    "correct_answer": "a"
+                }
             }
         },
         "New subject": {
-            "1": {
-                "question": "what is a dog",
-                "options": [
-                    "a",
-                    "b",
-                    "c",
-                    "d"
-                ],
-                "correct_answer": "a"
+            "date": "2023-11-02",
+            "time": "9:30 AM",
+            "duration": "45 minutes",
+            "questions": {
+                "1": {
+                    "question": "What is a dog?",
+                    "options": [
+                        "a",
+                        "b",
+                        "c",
+                        "d"
+                    ],
+                    "correct_answer": "a"
+                }
+            }
+        },
+        "test": {
+            "date": "30 of oct, 2023",
+            "time": "2:00",
+            "duration": "1",
+            "questions": {
+                "1": {
+                    "question": "What is PHE?",
+                    "options": [
+                        "a",
+                        "b",
+                        "c",
+                        "d"
+                    ],
+                    "correct_answer": "a"
+                }
             }
         }
     },
-    "Year 7C": {
-        "Yoruba": {
-            "1": {
-                "question": "Kini ede yoruba",
-                "options": [
-                    "a",
-                    "b",
-                    "c",
-                    "d"
-                ],
-                "correct_answer": "a"
-            }
-        }
-    },
+    "Year 7C": {},
     "Year 9C": {}
 }

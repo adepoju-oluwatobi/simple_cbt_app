@@ -94,61 +94,55 @@ def manage_cbt():
     return render_template('teacher/manage_cbt.html', students=student)
 
 
-@teacher_routes.route('/submit_question', methods=['GET', 'POST'])
-def submit_question():
+@teacher_routes.route('/submit_exam', methods=['GET', 'POST'])
+def submit_exam():
     if request.method == 'POST':
-        # Handle form submission and save the new questions
+        # Get the data from the form
         class_name = request.form['class']
         subject = request.form['subject']
+        date = request.form['date']
+        time = request.form['time']
+        duration = request.form['duration']
+
+        # Create a new subject entry in the 'questions' dictionary
+        if class_name not in questions:
+            questions[class_name] = {}
+
+        # Create a new subject entry within the class
+        questions[class_name][subject] = {
+            'date': date,
+            'time': time,
+            'duration': duration,
+            'questions': {}
+        }
+
+        # Load the existing questions for the subject
+        subject_questions = questions[class_name][subject]['questions']
+
+        # Loop through the request form data to extract questions
         num_questions = int(request.form['num_questions'])
-
-        # Load the existing questions from questions.json
-        with open(questions_json_path, 'r') as question_file:
-            question = json.load(question_file)
-
-        # Create a list to store the new question data
-        new_questions_data = []
-
         for i in range(1, num_questions + 1):
             question = request.form[f'question_{i}']
             options = request.form[f'options_{i}'].split(',')
             correct_answer = request.form[f'correct_answer_{i}']
 
-            # Create new question data
-            new_question_data = {
+            # Create a new question entry within the subject's questions
+            subject_questions[i] = {
                 'question': question,
                 'options': options,
                 'correct_answer': correct_answer
             }
 
-            # Append the new question data to the appropriate class and subject
-            if class_name not in question:
-                question[class_name] = {}  # Create a new class if it doesn't exist
-
-            if subject not in question[class_name]:
-                question[class_name][subject] = {}  # Create a new subject if it doesn't exist
-
-            # Find the next question number (e.g., "1", "2", "3")
-            question_number = str(len(question[class_name][subject]) + 1)
-
-            # Add the new question with the next available number
-            question[class_name][subject][question_number] = new_question_data
-
-            # Append the new question data to the list
-            new_questions_data.append(new_question_data)
-
-        # Save the updated questions back to questions.json
-        with open(questions_json_path, 'w') as question_file:
-            json.dump(question, question_file, indent=4)
+        # Save the entire questions dictionary back to the 'questions.json' file
+        save_questions()
 
         return redirect(url_for('teacher_routes.manage_cbt'))
 
-    # If it's a GET request, display the create_question.html form
     return render_template('teacher/create_question.html')
 
 
 def save_questions():
-    # Save the updated question data to the JSON file
+    # Save the questions data to the JSON file
     with open(questions_json_path, 'w') as questions_file:
         json.dump(questions, questions_file, indent=4)
 
@@ -194,10 +188,15 @@ def get_questions_for_class(class_name):
 
 
 def get_questions_for_class_subject(class_name, subject):
-    questions = load_questions()
-    class_data = questions.get(class_name, {})
-    subject_data = class_data.get(subject, {})
-    return subject_data
+    # Load the existing questions data from the 'questions.json' file
+    with open(questions_json_path, 'r') as questions_file:
+        questions = json.load(questions_file)
+
+    # Check if the class_name and subject exist in the questions data
+    if class_name in questions and subject in questions[class_name]:
+        return questions[class_name][subject]
+    else:
+        return {}
 
 
 def get_question_details(class_name, subject, question_id):
@@ -217,25 +216,38 @@ def get_question_details(class_name, subject, question_id):
     return None
 
 
-def update_questions_for_class_subject(class_name, subject, edited_questions_data):
+# Function to update questions for a specific class and subject
+def update_questions_for_class_subject(class_name, subject, edited_questions_data, edited_details):
     # Load the existing questions from the 'questions.json' file
     with open(questions_json_path, 'r') as questions_file:
         questions = json.load(questions_file)
 
     # Check if the class_name and subject exist in the questions data
     if class_name in questions and subject in questions[class_name]:
+        # Update the details (date, time, duration)
+        questions[class_name][subject]['date'] = edited_details['date']
+        questions[class_name][subject]['time'] = edited_details['time']
+        questions[class_name][subject]['duration'] = edited_details['duration']
+
+        # Update the questions
         for question_id, edited_data in edited_questions_data.items():
-            questions[class_name][subject][question_id] = edited_data
+            questions[class_name][subject]['questions'][question_id] = edited_data
 
         # Save the updated questions data back to the 'questions.json' file
         with open(questions_json_path, 'w') as questions_file:
             json.dump(questions, questions_file, indent=4)
 
 
+# Route to edit questions and details
 @teacher_routes.route('/edit_exam/<class_name>/<subject>', methods=['GET', 'POST'])
 def edit_exam(class_name, subject):
     if request.method == 'POST':
-        # Handle form submission and save the edited questions
+        # Handle form submission and save the edited questions and details
+        edited_details = {
+            'date': request.form['date'],
+            'time': request.form['time'],
+            'duration': request.form['duration']
+        }
         edited_questions_data = {}
         for key, value in request.form.items():
             if key.startswith('question_'):
@@ -246,13 +258,15 @@ def edit_exam(class_name, subject):
                     'correct_answer': request.form[f'correct_answer_{question_id}']
                 }
 
-        # Update the questions for the specified class and subject
-        update_questions_for_class_subject(class_name, subject, edited_questions_data)
+        # Update the questions and details for the specified class and subject
+        update_questions_for_class_subject(class_name, subject, edited_questions_data, edited_details)
 
         return redirect(url_for('teacher_routes.available_exams'))
 
+    class_subject_details = get_questions_for_class_subject(class_name, subject)
+    questions_data = class_subject_details['questions']
     return render_template('teacher/edit_questions.html', class_name=class_name, subject=subject,
-                           questions_data=get_questions_for_class_subject(class_name, subject))
+                           questions_data=questions_data, details=class_subject_details)
 
 
 @teacher_routes.route('/delete_exam/<class_name>/<subject>')

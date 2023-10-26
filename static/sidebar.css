@@ -1,0 +1,71 @@
+/* CSS for the sidebar */
+img{
+    width: 16px;
+}
+
+.sidebar {
+    font-family: 'Inter', sans-serif;
+    width: 250px; /* Adjust the width as needed */
+    background-color: #9c9c9c; /* Background color of the sidebar */
+    color: black; /* Text color */
+    position: fixed; /* Fixed position so it stays visible */
+    top: 0; /* Position at the top */
+    left: 0; /* Position on the left */
+    height: 100%; /* Make it full height */
+    overflow-y: auto; /* Enable scrolling if the content overflows */
+}
+
+.sidebar-nav {
+    list-style: none; /* Remove list bullets */
+    width: 100%;
+    padding-left: 30px;
+    margin-left: 0;
+}
+
+.sidebar-nav li {
+    color: black;
+    padding: 10px;
+}
+
+.sidebar-nav li div{
+    display: flex;
+    align-items: center;
+    padding: 0;
+    gap: 20px;
+}
+
+.sidebar-nav a {
+    text-decoration: none; /* Remove underlines from links */
+    color: black;
+    padding: 10px;
+    display: block; /* Make links full width */
+    transition: background-color 0.3s; /* Smooth hover transition */
+    border-radius: 10px 0px 0px 10px;
+}
+
+/* Change link color on hover and extend background to the right */
+.sidebar-nav a:hover {
+    background-color: #F8C82A; /* Background color on hover */
+    margin-right: -10px; /* Extend background to the right */
+    border: none;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.dropdown .cbt{
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.dropdown-content{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-right: 0;
+}
+.dropdown-content a{
+    border-radius: 10px;
+}
+.dropdown-content a:hover{
+    border-radius: 10px;
+}

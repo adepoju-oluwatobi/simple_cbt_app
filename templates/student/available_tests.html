@@ -15,8 +15,20 @@
         <ul>
             {% for subject in subjects %}
                 <li>
+                    Subject: {{ subject }}
+                    <ul>
+                        <li>
+                            Date: {{ test_data[subject].date }}
+                        </li>
+                        <li>
+                            Time: {{ test_data[subject].time }}
+                        </li>
+                        <li>
+                            Duration: {{ test_data[subject].duration }}
+                        </li>
+                    </ul>
                     <a href="{{ url_for('student_routes.start_exam', class_name=student_class, subject=subject) }}">
-                        {{ subject }}
+                        Take Test
                     </a>
                 </li>
             {% endfor %}

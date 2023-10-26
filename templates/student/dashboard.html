@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
     <title>Dashboard</title>
 </head>
 <body>
-{% include 'header.html' %}
+{% include 'student/sidebar.html' %}
     <div class="container">
-        <h1>Welcome, {{ username }}!</h1>
-        <h2>Class: {{ student_class }}</h2>
-        <p><a href="/student/available_tests">Take Test</a></p>
+        <p class="welcome">Welcome back <span class="name">{{ student_name }}</span> of class ({{ student_class }})</p>
         <p><a href="/student/logout">Logout</a></p>
     </div>
 </body>
