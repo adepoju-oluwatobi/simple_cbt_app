@@ -13,6 +13,9 @@
         <h1>Edit Questions for {{ class_name }} - {{ subject }}</h1>
         <form method="POST" action="{{ url_for('teacher_routes.edit_exam', class_name=class_name, subject=subject) }}">
             <!-- Form fields for question details -->
+            <label for="description">Test Description:</label>
+            <input type="text" id="description" name="description" value="{{ details.description }}" required>
+
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" value="{{ details.date }}" required>
 

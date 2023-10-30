@@ -1,0 +1,54 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Define your custom CSS styles for the progress display here */
+        .exam-progress {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .exam-progress li {
+            margin: 10px 0;
+        }
+
+        .exam-description {
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            background-color: #ccc;
+            height: 20px;
+            border-radius: 10px;
+            width: 100%;
+        }
+
+        .progress {
+            height: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Exam Progress</h1>
+<ul class="exam-progress">
+    {% for description, progress in exam_progress.items() %}
+        <li>
+            <span class="exam-description">{{ description }}</span>
+            <div class="progress-bar">
+                <div class="progress" style="width: {{ progress }}%;">
+                    {{ progress }}%
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+        <p><button onclick="goBack()">Go Back</button></p>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>

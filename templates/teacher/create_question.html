@@ -11,20 +11,22 @@
         <form method="POST" action="{{ url_for('teacher_routes.submit_exam') }}">
             <label for="class">Class:</label>
             <select id="class" name="class" required>
-                <option value="Year 8G">Year 8G</option>
-                <option value="Year 7C">Year 7C</option>
-                <option value="Year 9C">Year 9C</option>
+                <option value="Year 8GRAHAM">Year 8GRAHAM</option>
+                <option value="Year 7CHURCHILL">Year 7CHURCHILL</option>
+                <option value="Year 9CHURCHILL">Year 9CHURCHILL</option>
                 <!-- Add more options for different classes -->
             </select>
+            <label for="subject">Test Description</label>
+            <input type="text" id="description" name="description" required>
 
             <label for="subject">Subject:</label>
             <input type="text" id="subject" name="subject" required>
 
             <label for="date">Date:</label>
-            <input type="text" id="date" name="date" required>
+            <input type="date" id="date" name="date" required>
 
             <label for="time">Time:</label>
-            <input type="text" id="time" name="time" required>
+            <input type="time" id="time" name="time" required>
 
             <label for="duration">Duration:</label>
             <input type="text" id="duration" name="duration" required>

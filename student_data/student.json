@@ -27,6 +27,20 @@
         "name": "Ugbo Adorable",
         "class": "Year 8GRAHAM",
         "password": "adorable123",
-        "score": 0
+        "scores": {
+            "Agric": 1,
+            "Physics": 1,
+            "New subject": 1,
+            "History": 1
+        },
+        "progress": {
+            "Agric": 0,
+            "Physics": 0,
+            "New subject": 0,
+            "History": 0
+        }
+    },
+    "progress": {
+        "Description not available": 2
     }
 }

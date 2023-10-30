@@ -98,6 +98,7 @@ def manage_cbt():
 def submit_exam():
     if request.method == 'POST':
         # Get the data from the form
+        description = request.form['description']
         class_name = request.form['class']
         subject = request.form['subject']
         date = request.form['date']
@@ -110,6 +111,7 @@ def submit_exam():
 
         # Create a new subject entry within the class
         questions[class_name][subject] = {
+            'description': description,
             'date': date,
             'time': time,
             'duration': duration,
@@ -225,6 +227,7 @@ def update_questions_for_class_subject(class_name, subject, edited_questions_dat
     # Check if the class_name and subject exist in the questions data
     if class_name in questions and subject in questions[class_name]:
         # Update the details (date, time, duration)
+        questions[class_name][subject]['description'] = edited_details['description']
         questions[class_name][subject]['date'] = edited_details['date']
         questions[class_name][subject]['time'] = edited_details['time']
         questions[class_name][subject]['duration'] = edited_details['duration']
@@ -244,6 +247,7 @@ def edit_exam(class_name, subject):
     if request.method == 'POST':
         # Handle form submission and save the edited questions and details
         edited_details = {
+            'description': request.form['description'],
             'date': request.form['date'],
             'time': request.form['time'],
             'duration': request.form['duration']
