@@ -17,7 +17,7 @@
     color: #808000;
 }
 .test{
-    background: gray;
+   
     width: 600px;
     margin: auto;
     margin-bottom: 50px;
@@ -27,8 +27,11 @@
     justify-content: center;
     gap: 10px;
 }
-.test p{
-
+.test_detail{
+    background: #ECECEC;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 .test-container{
     padding: 10px;
