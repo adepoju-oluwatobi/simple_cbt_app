@@ -33,7 +33,8 @@
             "New subject": 1,
             "History": 1,
             "computer": 1,
-            "CRS": 0
+            "CRS": 0,
+            "A test subject": 3
         },
         "progress": {
             "Agric": 0,
@@ -41,7 +42,8 @@
             "New subject": 0,
             "History": 0,
             "computer": 0,
-            "CRS": 0
+            "CRS": 0,
+            "A test subject": 0
         }
     },
     "progress": {

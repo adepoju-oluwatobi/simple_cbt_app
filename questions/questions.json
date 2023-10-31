@@ -143,6 +143,44 @@
                     "correct_answer": "a"
                 }
             }
+        },
+        "A test subject": {
+            "description": "First Term Exam",
+            "date": "2023-11-04",
+            "time": "08:47",
+            "duration": "30 mins",
+            "questions": {
+                "1": {
+                    "question": "what is a dog",
+                    "options": [
+                        "a",
+                        "b",
+                        "c",
+                        "d"
+                    ],
+                    "correct_answer": "a"
+                },
+                "2": {
+                    "question": "what is ICT",
+                    "options": [
+                        "a",
+                        "b",
+                        "c",
+                        "d"
+                    ],
+                    "correct_answer": "b"
+                },
+                "3": {
+                    "question": "Who am i?",
+                    "options": [
+                        "a",
+                        "b",
+                        "c",
+                        "d"
+                    ],
+                    "correct_answer": "c"
+                }
+            }
         }
     },
     "Year 7CHURCHILL": {},

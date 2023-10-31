@@ -14,31 +14,27 @@
         <div class="test content">
             {% for subject in subjects %}
           <div class="test_detail">
-            <p class="test-description"> {{ test_data[subject].description }} </p>
+            <div>
+                <h1 class="test-description"> {{ test_data[subject].description }} </h1>
             
-            <p>Subject: {{ subject }}</p>
+                <p>Subject: {{ subject }}</p>
      
-            <p>Date: {{ test_data[subject].date }}</p>
+                <p>Date: {{ test_data[subject].date }}</p>
       
-            <p>Time: {{ test_data[subject].time }}</p>
+                <p>Time: {{ test_data[subject].time }}</p>
      
-            <p>Duration: {{ test_data[subject].duration }}</p>
+                <p>Duration: {{ test_data[subject].duration }}</p>
+            </div>
 
-            <a href="{{ url_for('student_routes.start_exam', class_name=student_class, subject=subject) }}">
-                <button>Take Test</button>
-            </a>
+            <div>
+                <a href="{{ url_for('student_routes.start_exam', class_name=student_class, subject=subject) }}">
+                    <button>Take Test</button>
+                </a>
+            </div>
 
           </div>
     {% endfor %}
-
-            <p><button onclick="goBack()">Go Back</button></p>
         </div>
     </div>
-
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
 </body>
 </html>

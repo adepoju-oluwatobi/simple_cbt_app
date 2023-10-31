@@ -29,9 +29,30 @@
 }
 .test_detail{
     background: #ECECEC;
-    padding: 20px;
+    padding: 20px 30px;
     border-radius: 10px;
+    margin-top: 20px;
     margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.test_detail p{
+    font-size: 14px;
+    line-height: 24px;
+}
+.test_detail button{
+    width: 120px;
+    padding: 10px;
+    /* margin-right: 200px; */
+    background: #F8C82A;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s; /* Smooth hover transition */
+}
+.test_detail button:hover{
+    background: #daaf24;
+    color: white;
 }
 .test-container{
     padding: 10px;
