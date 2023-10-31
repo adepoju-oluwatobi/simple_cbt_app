@@ -11,33 +11,26 @@
     {% include 'student/sidebar.html' %}
     <div class="container">
         {% include 'student/header.html' %}
-        <div class="content">
-            <h1>Available Tests</h1>
-<ul>
-    <p>Number of Completed Subjects: {{ num_completed_subjects }}</p>
+        <div class="test content">
     {% for subject in subjects %}
-        <li>
-            {{ test_data[subject].description }}
-            <ul>
-                <li>
-                    Subject: {{ subject }}
-                </li>
-                <li>
-                    Date: {{ test_data[subject].date }}
-                </li>
-                <li>
-                    Time: {{ test_data[subject].time }}
-                </li>
-                <li>
-                    Duration: {{ test_data[subject].duration }}
-                </li>
-            </ul>
+          <div>
+            <p class="test-description"> {{ test_data[subject].description }} </p>
+            
+            <p>Subject: {{ subject }}</p>
+     
+            <p>Date: {{ test_data[subject].date }}</p>
+      
+            <p>Time: {{ test_data[subject].time }}</p>
+     
+            <p>Duration: {{ test_data[subject].duration }}</p>
+
+          </div>
+           
             <a href="{{ url_for('student_routes.start_exam', class_name=student_class, subject=subject) }}">
-                Take Test
+                <button>Take Test</button>
             </a>
-        </li>
     {% endfor %}
-</ul>
+
             <p><button onclick="goBack()">Go Back</button></p>
         </div>
     </div>

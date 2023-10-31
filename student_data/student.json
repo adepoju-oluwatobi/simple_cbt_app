@@ -31,13 +31,17 @@
             "Agric": 1,
             "Physics": 1,
             "New subject": 1,
-            "History": 1
+            "History": 1,
+            "computer": 1,
+            "CRS": 0
         },
         "progress": {
             "Agric": 0,
             "Physics": 0,
             "New subject": 0,
-            "History": 0
+            "History": 0,
+            "computer": 0,
+            "CRS": 0
         }
     },
     "progress": {

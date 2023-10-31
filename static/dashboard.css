@@ -16,3 +16,24 @@
 .name{
     color: #808000;
 }
+.test{
+    background: gray;
+    width: 600px;
+    margin: auto;
+    margin-bottom: 50px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+.test p{
+
+}
+.test-container{
+    padding: 10px;
+}
+.test-description{
+    font-weight: bold;
+    font-size: 20px;
+}
