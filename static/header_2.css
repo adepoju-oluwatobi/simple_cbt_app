@@ -17,6 +17,7 @@ header{
 }
 .profile .pics{
     width: 24px;
+    cursor: pointer;
 }
 .site-title{
    font-weight: bold;
