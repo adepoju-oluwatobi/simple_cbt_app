@@ -7,14 +7,14 @@
         <li>
             <p class="menu">
                 <div>
-                    <img src="../../static/images/menu.svg" alt="">
+                    <img src="{{ url_for('static', filename='images/menu.svg') }}" alt="">
                 </div>
             </p>
         </li>
         <li>
             <a href="/student/dashboard">
                 <div>
-                    <img src="../../static/images/home.svg" alt="">
+                    <img src="{{ url_for('static', filename='images/home.svg') }}" alt="">
                     <p>Home</p>
                 </div>
             </a>
@@ -22,10 +22,10 @@
         <li class="dropdown" onclick="toggleContent()">
             <a href="#" class="dropdown-btn" id="cbt-dropdown">
                 <div>
-                    <img src="../../static/images/airplay.svg" alt="">
+                    <img src="{{ url_for('static', filename='images/airplay.svg') }}" alt="">
                     <div class="cbt">
                         <p>CBT</p>
-                        <img src="../../static/images/chevron-up.svg" alt="">
+                        <img src="{{ url_for('static', filename='images/chevron-up.svg') }}" alt="">
                     </div>
                 </div>
             </a>
@@ -38,7 +38,7 @@
         <li>
             <a href="#">
                 <div>
-                    <img src="../../static/images/book-open.svg" alt="">
+                    <img src="{{ url_for('static', filename='images/book-open.svg') }}" alt="">
                     <p>Assignment</p>
                 </div>
             </a>
@@ -46,7 +46,7 @@
         <li>
             <a href="#">
                 <div>
-                    <img src="../../static/images/users.svg" alt="">
+                    <img src="{{ url_for('static', filename='images/users.svg') }}" alt="">
                     <p>Virtual Class</p>
                 </div>
             </a>

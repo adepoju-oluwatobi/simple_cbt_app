@@ -29,12 +29,12 @@
         "password": "adorable123",
         "scores": {
             "Agric": 1,
-            "Physics": 1,
+            "Physics": 0,
             "New subject": 1,
             "History": 1,
             "computer": 1,
             "CRS": 0,
-            "A test subject": 3
+            "A test subject": 1
         },
         "progress": {
             "Agric": 0,

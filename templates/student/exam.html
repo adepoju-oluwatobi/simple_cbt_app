@@ -7,33 +7,39 @@
     <title>Exam</title>
 </head>
 <body>
-    {% include 'header.html' %}
+    {% include 'student/sidebar.html' %}
     <div class="container">
-        <h1 class="title">Exam Questions - {{ subject }}</h1> <!-- Display the subject here -->
-        <form action="{{ url_for('student_routes.submit_exam', subject=subject) }}" method="POST">
-            <ol class="questions_container">
-                {% for question_id, question_data in questions.items() %}
-                <li class="question">
-                    <p>Question {{ loop.index }}: {{ question_data['question'] }}</p>
-                    <ul class="options">
-                        {% for option in question_data['options'] %}
-                        <li>
-                            <label>
-                                <input type="radio" name="answer_{{ question_id }}" value="{{ option }}">
-                                {{ option }}
-                            </label>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </li>
-                {% endfor %}
-            </ol>
-            <input type="hidden" name="exam_submission" value="1">
-            <input type="button" id="prevButton" value="Previous">
-            <input type="button" id="nextButton" value="Next">
-            <input type="submit" value="Submit Exam">
-            <input type="hidden" name="subject" value="{{ subject }}">
-        </form>
+        {% include 'student/header.html' %}
+        <div class="content-container">
+            <div class="content">
+                <h1 class="title">Exam Questions - {{ subject }}</h1> <!-- Display the subject here -->
+                <form action="{{ url_for('student_routes.submit_exam', subject=subject) }}" method="POST">
+                <ol class="questions_container">
+                    <div>
+                    {% for question_id, question_data in questions.items() %}
+                    <li class="question">
+                        <p>Question {{ loop.index }}: {{ question_data['question'] }}</p>
+                        <ul class="options">
+                            {% for option in question_data['options'] %}
+                            <li>
+                                <label>
+                                    <input type="radio" name="answer_{{ question_id }}" value="{{ option }}">
+                                    {{ option }}
+                                </label>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </ol>
+                <input type="hidden" name="exam_submission" value="1">
+                <input type="button" id="prevButton" value="Previous">
+                <input type="button" id="nextButton" value="Next">
+                <input type="submit" value="Submit Exam">
+                <input type="hidden" name="subject" value="{{ subject }}">
+            </form>
+        </div>
+        </div>
     </div>
 <script>
     const questions = document.querySelectorAll('.question');

@@ -5,18 +5,18 @@ img{
 
 .sidebar {
     font-family: 'Inter', sans-serif;
-    width: 250px; /* Adjust the width as needed */
-    background-color: #800020; /* Background color of the sidebar */
-    color: black; /* Text color */
-    position: fixed; /* Fixed position so it stays visible */
-    top: 0; /* Position at the top */
-    left: 0; /* Position on the left */
-    height: 100%; /* Make it full height */
-    overflow-y: auto; /* Enable scrolling if the content overflows */
+    width: 250px;
+    background-color: #800020;
+    color: black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow-y: auto;
 }
 
 .sidebar-nav {
-    list-style: none; /* Remove list bullets */
+    list-style: none;
     width: 100%;
     padding-left: 30px;
     margin-left: 0;
@@ -36,18 +36,17 @@ img{
 }
 
 .sidebar-nav a, .sidebar-nav .menu {
-    text-decoration: none; /* Remove underlines from links */
+    text-decoration: none;
     color: white;
     padding: 10px;
-    display: block; /* Make links full width */
-    transition: background-color 0.5s; /* Smooth hover transition */
+    display: block;
+    transition: background-color 0.5s;
     border-radius: 10px 0px 0px 10px;
 }
 
-/* Change link color on hover and extend background to the right */
 .sidebar-nav a:hover {
-    background-color: #F8C82A; /* Background color on hover */
-    margin-right: -10px; /* Extend background to the right */
+    background-color: #F8C82A;
+    margin-right: -10px;
     border: none;
     border-radius: 10px 0px 0px 10px;
     color: black;

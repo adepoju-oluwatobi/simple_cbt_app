@@ -1,26 +1,37 @@
-/* Add styling for the exam page */
+*{
+    padding: 0;
+    margin: 0;
+}
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
 }
-
 .container {
-    background-color: #fff;
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-left: 250px;
+    font-family: 'Inter', sans-serif;
 }
-
+.content{
+    width: 600px;
+    background: #ECECEC;
+    box-shadow: 2px 2px 10px 3px rgba(0, 0, 0, 0.493);
+    padding: 20px 30px;
+    border-radius: 10px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+   
+}
+.content-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .title {
     font-size: 24px;
     color: #333;
 }
-
 .questions_container {
     list-style-type: none;
     padding: 20px;
@@ -28,28 +39,24 @@ body {
     flex-direction: column;
     gap: 20px;
 }
-
 .question {
     display: none;
 }
-
 .options {
     list-style-type: none;
     padding: 0;
 }
-
 label {
     display: block;
     font-size: 16px;
     color: #555;
 }
-
 input[type="radio"] {
     margin-right: 5px;
+    cursor: pointer;
 }
-
-input[type="button"] {
-    background-color: #007bff;
+input[type="button"], button {
+    background-color: #800020;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -57,33 +64,21 @@ input[type="button"] {
     border-radius: 5px;
     cursor: pointer;
 }
-
 input[type="button"]:hover {
-    background-color: #0056b3;
+    background-color: #5e0017;
 }
-
-/* Customize additional styles as needed */
-/* Style for the Submit button */
 input[type="submit"] {
-    background-color: #4CAF50; /* Green background color */
-    color: white; /* White text color */
-    padding: 10px 20px; /* Padding for the button */
-    border: none; /* Remove button border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Add a pointer cursor on hover */
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer;
 }
-
 input[type="submit"]:hover {
-    background-color: #45a049; /* Darker green color on hover */
+    background-color: #45a049;
 }
-Now your "Submit" button will have a green background with white text and a nice hover effect. You can adjust the colors and other styles to match your design preferences. Make sure to link your CSS file in your HTML, like this:
-
-html
-Copy code
-<link rel="stylesheet" href="{{ url_for('static', filename='exam_page.css') }}">
-Remember to place this CSS code in your CSS file and adjust it according to your design requirements.
-
-
-
-
-
+a{
+    text-decoration: none;
+    color: white;
+}
