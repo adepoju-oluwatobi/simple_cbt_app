@@ -1,8 +1,9 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
-header{
+
+header {
     background: #800020;
     padding: 20px;
     display: flex;
@@ -10,34 +11,41 @@ header{
     align-items: center;
     color: white;
 }
-.profile{
+
+.profile {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-.profile .pics{
+
+.profile .pics {
     width: 24px;
     cursor: pointer;
 }
-.site-title{
-   font-weight: bold;
+
+.site-title {
+    font-weight: bold;
 }
-.pics_container{
+
+.pics_container {
     display: flex;
     align-items: end;
 }
-.online{
+
+.online {
     width: 8px;
     margin-left: -5px;
 }
+
 .dropdown-contents {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
+    border-radius: 8px;
     left: 85%;
     top: 12%;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -46,9 +54,11 @@ header{
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    color: black;
 }
 
 /* Change color on hover */
 .dropdown-contents a:hover {
     background-color: #f1f1f1;
+    border-radius: 8px;
 }

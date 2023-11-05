@@ -23,7 +23,7 @@
             <input type="time" id="time" name="time" value="{{ details.time }}" required>
 
             <label for="duration">Duration (in minutes):</label>
-            <input type="text" id="duration" name="duration" value="{{ details.duration }}" required>
+            <input type="time" id="duration" name="duration" value="{{ details.duration }}" required>
 
             <!-- Form fields for questions and answers -->
             {% for question_id, question_data in questions_data.items() %}

@@ -29,7 +29,8 @@ def teacher_dashboard():
     if 'username' in session:
         username = session['username']
         teacher_data = teachers.get(username, {})  # Get the user's data
-        teacher_class = teacher_data.get('class', 'N/A')  # Default to 'N/A' if 'class' data is not present
+        # Default to 'N/A' if 'class' data is not present
+        teacher_class = teacher_data.get('class', 'N/A')
         teacher_subject = teacher_data.get('subject', 'N/A')
 
         return render_template('teacher/dashboard.html', username=username, teacher_class=teacher_class,
@@ -263,11 +264,13 @@ def edit_exam(class_name, subject):
                 }
 
         # Update the questions and details for the specified class and subject
-        update_questions_for_class_subject(class_name, subject, edited_questions_data, edited_details)
+        update_questions_for_class_subject(
+            class_name, subject, edited_questions_data, edited_details)
 
         return redirect(url_for('teacher_routes.available_exams'))
 
-    class_subject_details = get_questions_for_class_subject(class_name, subject)
+    class_subject_details = get_questions_for_class_subject(
+        class_name, subject)
     questions_data = class_subject_details['questions']
     return render_template('teacher/edit_questions.html', class_name=class_name, subject=subject,
                            questions_data=questions_data, details=class_subject_details)

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    </head>
+    <body>
+        {% include 'student/sidebar.html' %}
+        <div class="container">
+            {% include 'student/header.html' %}
+            <div class="warning-message" id="warningMessage">
+                <p>{{ message }}</p>
+                <button>
+                    <a href="javascript:window.history.back();">Back</a>
+                </button>
+            </div>
+        </div>
+        <script src="" async defer></script>
+    </body>
+</html>

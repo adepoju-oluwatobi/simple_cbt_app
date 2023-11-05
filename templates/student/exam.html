@@ -12,7 +12,11 @@
         {% include 'student/header.html' %}
         <div class="content-container">
             <div class="content">
-                <h1 class="title">Exam Questions - {{ subject }}</h1> <!-- Display the subject here -->
+                <h1 class="title">Exam Questions - {{ subject }}</h1>
+                <div class="timer-container">
+                    <p>Time Remaining: <span id="timer">--:--</span></p>
+                    <p>Duration: {{ test_duration }} minutes</p>
+                </div>
                 <form action="{{ url_for('student_routes.submit_exam', subject=subject) }}" method="POST">
                 <ol class="questions_container">
                     <div>

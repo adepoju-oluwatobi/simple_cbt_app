@@ -1,4 +1,6 @@
 from flask import request, redirect, url_for
+from datetime import datetime
+
 
 from . import *  # Import the student_routes blueprint
 
@@ -162,8 +164,8 @@ def load_questions():
 @student_routes.route('/start_exam/<class_name>/<subject>')
 def start_exam(class_name, subject):
     if 'username' in session:
-        student_username = session['username']
-        student_data = students.get(student_username, {})
+        username = session['username']
+        student_data = students.get(username, {})
         student_class = student_data.get('class', '')
 
         # Check if the student's class matches the specified class_name
@@ -175,28 +177,44 @@ def start_exam(class_name, subject):
             if class_name in all_questions and subject in all_questions[class_name]:
                 subject_data = all_questions[class_name][subject]
 
-                # Extract test data: date, time, duration, and questions
-                test_date = subject_data.get("date")
-                test_time = subject_data.get("time")
-                test_duration = subject_data.get("duration")
-                questions_for_class_subject = subject_data.get("questions")
+                # Extract exam date and time
+                exam_date_str = subject_data.get("date")
+                exam_time_str = subject_data.get("time")
 
-                if questions_for_class_subject:
-                    return render_template('student/exam.html', questions=questions_for_class_subject, subject=subject,
-                                           test_date=test_date, test_time=test_time, test_duration=test_duration)
+                # Parse exam date and time strings to datetime objects
+                exam_datetime = datetime.strptime(f"{exam_date_str} {exam_time_str}", "%Y-%m-%d %H:%M")
+
+                # Get the current date and time
+                current_datetime = datetime.now()
+
+                # Check if the current datetime is after the exam datetime
+                if current_datetime >= exam_datetime:
+                    # Extract test data: date, time, duration, and questions
+                    test_date = subject_data.get("date")
+                    test_time = subject_data.get("time")
+                    test_duration = subject_data.get("duration")
+                    questions_for_class_subject = subject_data.get("questions")
+
+                    if questions_for_class_subject:
+                        return render_template('student/exam.html', questions=questions_for_class_subject, subject=subject,
+                                               test_date=test_date, test_time=test_time, test_duration=test_duration)
+                    else:
+                        message = "No questions found for the specified subject"
+                        return render_template('student/alert.html', message=message)
                 else:
-                    return "No questions found for the specified subject"
+                    message = "The exam is not accessible until the scheduled date and time."
+                    return render_template('student/alert.html', message=message)
             else:
-                return "Subject not found in questions data."
+                message = "Subject not found in questions data."
+                return render_template('student/alert.html', message=message)
         else:
-            return "Unauthorized access to this subject"
+            message = "Unauthorized access to this subject"
+            return render_template('student/alert.html', message=message)
     else:
         return redirect(url_for('student/login'))
 
 
 def get_subject_description(subject):
-    # Replace this with your actual code to retrieve the description
-    # You should extract the description from your questions data
     all_questions = load_questions()  # Load your questions data
     subject_data = all_questions.get(subject)  # Change this to get the correct subject data
     if subject_data:
@@ -332,9 +350,20 @@ def calculate_score(user_answers, subject):
 def show_score(subject):
     if 'username' in session:
         username = session['username']
+        student_data = students.get(username, {})
+        student_class = student_data.get('class', '')
+
+        # Load your questions JSON data
+        all_questions = load_questions()
+
+        if student_class in all_questions and subject in all_questions[student_class]:
+            subject_data = all_questions[student_class][subject]
+        
         score = get_student_score(username, subject)
+        total_questions = len(subject_data.get("questions", {}))
+        
         if score is not None:
-            return render_template('student/score.html', subject=subject, score=score)
+            return render_template('student/score.html', subject=subject, score=score, total_questions=total_questions)
         else:
             return "No score found for the specified subject"
     return redirect(url_for('student_routes.student_login'))

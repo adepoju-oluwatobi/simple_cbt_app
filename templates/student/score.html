@@ -12,11 +12,11 @@
     {% include 'student/header.html' %}
   <div class="content-container">
     <div class="content">
-        <h1>Score</h1>
+        <h1>Score for {{ subject }}</h1>
         {% if score != 'N/A' %}
-            <p>Your score is: {{ score }}</p>
+             <p class="score">Your score is {{ score }} out of {{ total_questions }}</p>
         {% else %}
-            <p>Your score for this subject is not available.</p>
+            <p class="questions-answered">Your score for this subject is not available.</p>
         {% endif %}
        <div>
         <button><a href="/student/available_tests">Take Test</a></button>
