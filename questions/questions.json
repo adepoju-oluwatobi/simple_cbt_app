@@ -1,7 +1,7 @@
 {
     "Year 8GRAHAM": {
         "Agric": {
-            "description": "Fortnight Test",
+            "description": "First Term Exam",
             "date": "2023-10-04",
             "time": "11:09",
             "duration": "00:01",
@@ -55,8 +55,45 @@
                     "correct_answer": "c"
                 }
             }
+        },
+        "Computer": {
+            "description": "First Term Exam",
+            "date": "2023-11-05",
+            "time": "08:40",
+            "duration": "00:01",
+            "questions": {
+                "1": {
+                    "question": "Is keyboard an input device?",
+                    "options": [
+                        "yes",
+                        "no",
+                        "maybe",
+                        "i dont know"
+                    ],
+                    "correct_answer": "yes"
+                }
+            }
         }
     },
     "Year 7CHURCHILL": {},
-    "Year 9CHURCHILL": {}
+    "Year 7IVY": {
+        "Computer": {
+            "description": "First Term Exam",
+            "date": "2023-11-05",
+            "time": "10:06",
+            "duration": "00:01",
+            "questions": {
+                "1": {
+                    "question": "Is keyboard an input device?",
+                    "options": [
+                        "yes",
+                        "no",
+                        "maybe",
+                        "i dont know"
+                    ],
+                    "correct_answer": "yes"
+                }
+            }
+        }
+    }
 }

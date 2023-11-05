@@ -4,7 +4,7 @@
     <!-- ... (your other HTML head content) ... -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie.edge">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
 </head>
 <body>
@@ -13,21 +13,28 @@
         {% include 'student/header.html' %}
         <div class="test content">
             {% for subject in subjects %}
-                <div class="test_detail">
-                    <div>
-                        <h1 class="test-description"> {{ test_data[subject].description }} </h1>
-                        <p>Subject: {{ subject }}</p>
-                        <p>Date: {{ test_data[subject].date }}</p>
-                        <p>Time: {{ test_data[subject].time }}</p>
-                        <p>Duration: {{ test_data[subject].duration }}</p>
+                {% set subject_data = test_data.get(subject) %}
+                {% if subject_data is defined %}
+                    <div class="test_detail">
+                        <div>
+                            <h1 class="test-description">{{ subject_data.description }}</h1>
+                            <p>Subject: {{ subject }}</p>
+                            <p>Date: {{ subject_data.date }}</p>
+                            <p>Time: {{ subject_data.time }}</p>
+                            <p>Duration: {{ subject_data.duration }}</p>
+                        </div>
+                        <div>
+                            {% set subject_progress = progress.get(subject, 0) %}
+                            {% if subject_progress == 100 %}
+                                <button class="completed-button" disabled>100% Completed</button>
+                            {% else %}
+                                <a href="{{ url_for('student_routes.start_exam', class_name=student_class, subject=subject) }}">
+                                    <button>Take Test</button>
+                                </a>
+                            {% endif %}
+                        </div>
                     </div>
-
-                    <div>
-                        <a href="{{ url_for('student_routes.start_exam', class_name=student_class, subject=subject) }}">
-                            <button>Take Test</button>
-                        </a>
-                    </div>
-                </div>
+                {% endif %}
             {% endfor %}
         </div>
     </div>
@@ -37,7 +44,7 @@
         var message = "{{ message }}";
         if (message.trim() !== "") {
             var warningMessage = document.getElementById("warningMessage");
-            warningMessage.style.display = "block";
+            warningMessage.style display = "block";
         }
     </script>
 </body>
