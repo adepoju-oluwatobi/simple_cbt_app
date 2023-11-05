@@ -14,10 +14,10 @@
             <div class="content">
                 <h1 class="title">Exam Questions - {{ subject }}</h1>
                 <div class="timer-container">
-                    <p>Time Remaining: <span id="timer">--:--</span></p>
-                    <p>Duration: {{ test_duration }} minutes</p>
+                    <p>Time Remaining: <span class="time-left" id="timer">--:--</span></p>
+                    <p class="duration">Duration: {{ duration }} minutes</p>
                 </div>
-                <form action="{{ url_for('student_routes.submit_exam', subject=subject) }}" method="POST">
+                <form action="{{ url_for('student_routes.submit_exam', subject=subject, duration=duration) }}" method="POST">
                 <ol class="questions_container">
                     <div>
                     {% for question_id, question_data in questions.items() %}
@@ -45,51 +45,114 @@
         </div>
         </div>
     </div>
-<script>
-    const questions = document.querySelectorAll('.question');
-    const prevButton = document.getElementById('prevButton');
-    const nextButton = document.getElementById('nextButton');
-    const submitButton = document.querySelector('input[type="submit"]');
-    let currentQuestionIndex = 0;
-
-    function showQuestion(index) {
-        questions.forEach((question, i) => {
-            question.style.display = i === index ? 'block' : 'none';
+    <script>
+        const questions = document.querySelectorAll('.question');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        const submitButton = document.querySelector('input[type="submit"]');
+        const timerElement = document.getElementById('timer');
+        let currentQuestionIndex = 0;
+    
+        // Retrieve the remaining time from local storage
+        let remainingTime = localStorage.getItem('remainingTime');
+    
+        // Convert {{ test_duration }} to an integer (minutes to seconds)
+        const testDurationMinutes = parseInt("{{ duration }}", 10);
+        const totalDuration = testDurationMinutes * 60; // Convert minutes to seconds
+    
+        if (remainingTime === null) {
+            remainingTime = totalDuration; // Initialize with the total duration if not in local storage
+        } else {
+            remainingTime = parseInt(remainingTime, 10);
+        }
+    
+        // Function to update the timer display
+        function updateTimerDisplay() {
+            const minutes = Math.floor(remainingTime / 60);
+            const seconds = remainingTime % 60;
+            const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    
+            // Change the timer text color to red when it gets to 30 seconds
+            if (remainingTime <= 30) {
+                timerElement.style.color = 'red';
+            } else {
+                timerElement.style.color = 'green';
+            }
+    
+            timerElement.textContent = formattedTime;
+        }
+    
+        function updateTimer() {
+            if (remainingTime > 0) {
+                remainingTime--;
+                updateTimerDisplay();
+    
+                // Save the updated remainingTime to local storage
+                localStorage.setItem('remainingTime', remainingTime);
+            } else {
+                // Time's up, you can add actions to handle this case
+                timerElement.textContent = '00:00';
+    
+                localStorage.removeItem('remainingTime');
+                
+                // Automatically submit the form when the time is up
+                document.querySelector('form').submit();
+            }
+        }
+    
+        // Set an interval to update the timer
+        const timerInterval = setInterval(updateTimer, 1000);
+    
+        // Show the first question initially
+        showQuestion(currentQuestionIndex);
+    
+        function showQuestion(index) {
+            questions.forEach((question, i) => {
+                question.style.display = i === index ? 'block' : 'none';
+            });
+    
+            // Set the visibility of next and previous buttons based on the current question index
+            if (index === 0) {
+                prevButton.style.display = 'none';
+            } else {
+                prevButton.style.display = 'inline-block';
+            }
+            if (index === questions.length - 1) {
+                nextButton.style.display = 'none';
+                submitButton.style.display = 'inline-block';
+            } else {
+                nextButton.style.display = 'inline-block';
+                submitButton.style.display = 'none';
+            }
+        }
+    
+        function showNextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+            }
+        }
+    
+        function showPreviousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+            }
+        }
+    
+        nextButton.addEventListener('click', showNextQuestion);
+        prevButton.addEventListener('click', showPreviousQuestion);
+    
+        // Add an event listener for form submission
+        submitButton.addEventListener('click', function() {
+            // Clear the 'remainingTime' item from local storage (in case the submit button is clicked before the timer reaches 0)
+            localStorage.removeItem('remainingTime');
         });
-        if (index === 0) {
-            prevButton.style.display = 'none';
-        } else {
-            prevButton.style.display = 'inline-block';
-        }
-        if (index === questions.length - 1) {
-            nextButton.style.display = 'none';
-            submitButton.style.display = 'inline-block';
-        } else {
-            nextButton.style.display = 'inline-block';
-            submitButton.style.display = 'none';
-        }
-    }
-
-    function showNextQuestion() {
-        if (currentQuestionIndex < questions.length - 1) {
-            currentQuestionIndex++;
-            showQuestion(currentQuestionIndex);
-        }
-    }
-
-    function showPreviousQuestion() {
-        if (currentQuestionIndex > 0) {
-            currentQuestionIndex--;
-            showQuestion(currentQuestionIndex);
-        }
-    }
-
-    nextButton.addEventListener('click', showNextQuestion);
-    prevButton.addEventListener('click', showPreviousQuestion);
-
-    // Show the first question initially
-    showQuestion(currentQuestionIndex);
-</script>
+    </script>
+    
+    
+    
+    
 
 </body>
 </html>

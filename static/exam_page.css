@@ -85,3 +85,10 @@ a{
     text-decoration: none;
     color: white;
 }
+.timer-container{
+    display: flex;
+    justify-content: space-between;
+}
+.timer-container .time-left{
+    color: green;
+}

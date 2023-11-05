@@ -4,7 +4,7 @@
             "description": "Fortnight Test",
             "date": "2023-10-04",
             "time": "11:09",
-            "duration": "00:30",
+            "duration": "00:01",
             "questions": {
                 "1": {
                     "question": "What is agriculture?",
@@ -22,7 +22,7 @@
             "description": "First Term Exam",
             "date": "2023-11-05",
             "time": "07:51",
-            "duration": "00:30",
+            "duration": "00:01",
             "questions": {
                 "1": {
                     "question": "what is a dog",

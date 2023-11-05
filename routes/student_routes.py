@@ -1,9 +1,7 @@
 from flask import request, redirect, url_for
 from datetime import datetime
 
-
 from . import *  # Import the student_routes blueprint
-
 
 @student_routes.route('/login', methods=['GET', 'POST'])
 def student_login():
@@ -193,11 +191,17 @@ def start_exam(class_name, subject):
                     test_date = subject_data.get("date")
                     test_time = subject_data.get("time")
                     test_duration = subject_data.get("duration")
+                    
+                    # Split the duration string into hours and minutes
+                    hours, minutes = map(int, test_duration.split(':'))
+                    
+                    # Convert hours and minutes to the total duration in minutes
+                    duration = hours * 60 + minutes
                     questions_for_class_subject = subject_data.get("questions")
 
                     if questions_for_class_subject:
                         return render_template('student/exam.html', questions=questions_for_class_subject, subject=subject,
-                                               test_date=test_date, test_time=test_time, test_duration=test_duration)
+                                               test_date=test_date, test_time=test_time, duration=duration)
                     else:
                         message = "No questions found for the specified subject"
                         return render_template('student/alert.html', message=message)
