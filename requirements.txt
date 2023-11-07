@@ -13,6 +13,6 @@ flask>=2.0.0
 app~=0.0.1
 greenlet~=3.0.1
 psycopg2~=2.9.9
-SQLAlchemy~=2.0.23
+SQLAlchemy>=2.0.0
 legacy~=0.1.6
 schedule~=1.2.1
