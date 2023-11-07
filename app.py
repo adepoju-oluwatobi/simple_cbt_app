@@ -13,7 +13,8 @@ current_directory = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
 app.secret_key = 'username'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin@localhost:3000/CBT-app'
+app.config['SQLALCHEMY_DATABASE_URI'] = ('postgres://admin:eKCXp76q0YmcH3kVUnbMgFhJfc8jlPLr@dpg-cl59ot182rpc73frbac0-a'
+                                         '/cbt_app')
 db = SQLAlchemy(app)
 
 app.register_blueprint(student_routes, url_prefix="/student")
