@@ -1,7 +1,5 @@
 import random
-
 from flask import request, redirect, url_for
-
 from . import *  # Import the student_routes blueprint
 
 

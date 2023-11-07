@@ -1,7 +1,7 @@
-from flask import request, redirect, url_for
+from flask import request, redirect, url_for, current_app
 from datetime import datetime
-
 from . import *  # Import the student_routes blueprint
+
 
 @student_routes.route('/login', methods=['GET', 'POST'])
 def student_login():
@@ -50,7 +50,7 @@ def student_dashboard():
     if 'username' in session:
         username = session['username']
         student_data = students.get(username, {})  # Get the user's data
-       
+
         student_class = student_data.get('class', 'N/A')
         student_name = student_data.get('name', 'N/A')
         student_score = student_data.get('score', 'N/A')
@@ -62,6 +62,7 @@ def student_dashboard():
 
 
 import json
+
 
 @student_routes.route('/available_tests')
 def available_tests():
@@ -104,8 +105,7 @@ def available_tests():
         return render_template('student/available_tests.html', subjects=class_questions.keys(), test_data=test_data,
                                student_class=student_class, message=message, progress=subject_progress)
 
-    return redirect(url_for('student/login'))
-
+    return redirect(url_for('student_routes.student_login'))
 
 
 def is_subject_completed(student_data, subject, max_exams):
@@ -115,7 +115,6 @@ def is_subject_completed(student_data, subject, max_exams):
         completed_exams = student_data.get('completed_exams', {}).get(subject, 0)
         return completed_exams >= max_exams
     return False
-
 
 
 def get_completed_subjects(student_data, class_questions):
@@ -166,7 +165,7 @@ def start_exam(class_name, subject):
                 if has_student_completed_exam(student_data, subject):
                     message = "You have already completed this exam. You cannot retake it."
                     return render_template('student/alert.html', message=message)
-                
+
                 # Extract exam date and time
                 exam_date_str = subject_data.get("date")
                 exam_time_str = subject_data.get("time")
@@ -183,16 +182,17 @@ def start_exam(class_name, subject):
                     test_date = subject_data.get("date")
                     test_time = subject_data.get("time")
                     test_duration = subject_data.get("duration")
-                    
+
                     # Split the duration string into hours and minutes
                     hours, minutes = map(int, test_duration.split(':'))
-                    
+
                     # Convert hours and minutes to the total duration in minutes
                     duration = hours * 60 + minutes
                     questions_for_class_subject = subject_data.get("questions")
 
                     if questions_for_class_subject:
-                        return render_template('student/exam.html', questions=questions_for_class_subject, subject=subject,
+                        return render_template('student/exam.html', questions=questions_for_class_subject,
+                                               subject=subject,
                                                test_date=test_date, test_time=test_time, duration=duration)
                     else:
                         message = "No questions found for the specified subject"
@@ -289,7 +289,6 @@ def submit_exam():
     return redirect(url_for('student_routes.student_login'))
 
 
-
 def calculate_progress(student_data, subject, max_exams):
     max_exams = 1
     # Check if 'completed_exams' key is present in student_data
@@ -306,7 +305,6 @@ def calculate_progress(student_data, subject, max_exams):
         progress = 0  # Set progress to 0 or handle it differently
 
     return progress
-
 
 
 # Load student data from student.json file
@@ -363,10 +361,10 @@ def show_score(subject):
 
         if student_class in all_questions and subject in all_questions[student_class]:
             subject_data = all_questions[student_class][subject]
-        
+
         score = get_student_score(username, subject)
         total_questions = len(subject_data.get("questions", {}))
-        
+
         if score is not None:
             return render_template('student/score.html', subject=subject, score=score, total_questions=total_questions)
         else:

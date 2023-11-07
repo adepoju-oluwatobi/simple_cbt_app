@@ -5,6 +5,7 @@ import json
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
+
 students_json_path = os.path.join(current_directory, '../student_data/student.json')
 teachers_json_path = os.path.join(current_directory, '../teacher_data/teacher.json')
 admin_json_path = os.path.join(current_directory, '../admin_data/admin.json')
