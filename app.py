@@ -81,7 +81,7 @@ def update_database_from_json():
 schedule.every(1).minutes.do(update_database_from_json)
 
 
-# Function to start the scheduled job
+# Function to start the scheduled data
 def run_scheduled_job():
     while True:
         schedule.run_pending()
