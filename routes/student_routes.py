@@ -145,6 +145,42 @@ def load_questions():
     return question
 
 
+@student_routes.route('/instruction/<class_name>/<subject>', methods=['GET', 'POST'])
+def instruction(class_name, subject):
+    if 'username' in session:
+        username = session['username']
+        student_data = students.get(username, {})
+        student_class = student_data.get('class', '')
+        progress = student_data.get('progress', {})
+
+        # Load your questions JSON data
+        all_questions = load_questions()
+        # Get class-specific questions and max exams
+        class_questions = all_questions.get(student_class, {})
+
+        if request.method == 'POST':
+            selected_subject = request.form.get('subject')  # Assuming the subject is submitted via a form
+        else:
+            # Default to the first subject if not submitted via a form
+            selected_subject = next(iter(class_questions.keys()), None)
+
+        subject_data = class_questions.get(selected_subject, {})
+        test_data = {
+            selected_subject: {
+                "description": subject_data.get("description"),
+                "date": subject_data.get("date"),
+                "time": subject_data.get("time"),
+                "duration": subject_data.get("duration"),
+                "num_questions": len(subject_data.get("questions", [])),
+            }
+        }
+
+        return render_template('student/instruction.html', test_data=test_data)
+
+    # Handle the case where 'username' is not in session
+    return render_template('login.html')
+
+
 @student_routes.route('/start_exam/<class_name>/<subject>')
 def start_exam(class_name, subject):
     if 'username' in session:

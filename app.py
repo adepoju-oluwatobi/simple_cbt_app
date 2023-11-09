@@ -1,12 +1,14 @@
-import os
 import json
-from flask import Flask, render_template, session, current_app
+import os
+import time
+
+import schedule  # Import the schedule library
+from flask import Flask, render_template, session
 from flask_sqlalchemy import SQLAlchemy
+
 from routes.admin_routes import admin_routes
 from routes.student_routes import student_routes
 from routes.teacher_routes import teacher_routes
-import schedule  # Import the schedule library
-import time
 
 # Get the current directory of your Python script
 current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -46,6 +48,25 @@ class Student(db.Model):
     progress = db.Column(db.JSON)
 
 
+# Define a model for teacher data
+class Teacher(db.Model):
+    __tablename__ = 'teacher'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100))
+    email = db.Column(db.String(100))
+    password = db.Column(db.String(100))
+    subject = db.Column(db.String(100))
+    class_name = db.Column(db.String(100))
+
+
+class Admin(db.Model):
+    __tablename__ = 'admin'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100))
+    email = db.Column(db.String(100))
+    password = db.Column(db.String(100))
+
+
 # Load student data from the JSON file
 def load_student_data():
     with open('student_data/student.json', 'r') as student_file:
@@ -53,9 +74,22 @@ def load_student_data():
     return student_data
 
 
+def load_teacher_data():
+    with open('teacher_data/teacher.json', 'r') as teacher_file:
+        teacher_data = json.load(teacher_file)
+    return teacher_data
+
+
+def load_admin_data():
+    with open('admin_data/admin.json', 'r') as admin_file:
+        admin_data = json.load(admin_file)
+        # print(admin_data)
+    return admin_data
+
+
 # Function to save student data to the database
 # Create a function to update the database from the JSON file
-def update_database_from_json():
+def update_student_database_from_json():
     student_data = load_student_data()
     with app.app_context():
         # Clear the 'student' table before updating
@@ -77,8 +111,50 @@ def update_database_from_json():
         db.session.commit()
 
 
+def update_teacher_database_from_json():
+    teacher_data = load_teacher_data()
+    with app.app_context():
+        # Clear the 'teacher' table before updating
+        Teacher.query.delete()
+
+        # Add data from the JSON file to the database
+        for username, data in teacher_data.items():
+            teacher = Teacher(
+                username=username,
+                email=data.get('email'),
+                password=data.get('password'),
+                subject=data.get('subject'),
+                class_name=data.get('class')
+            )
+
+            db.session.add(teacher)
+
+        db.session.commit()
+
+
+def update_admin_database_from_json():
+    admin_data = load_admin_data()
+    with app.app_context():
+        db.create_all()
+        Admin.query.delete()
+
+        # Add data from the JSON file to the database
+        for username, data in admin_data.items():
+            admin = Admin(
+                username=username,
+                email=data.get('email'),
+                password=data.get('password')
+            )
+
+            db.session.add(admin)
+
+        db.session.commit()
+
+
 # Schedule the update_database_from_json function to run every hour
-schedule.every(1).minutes.do(update_database_from_json)
+schedule.every(1).seconds.do(update_student_database_from_json)
+schedule.every(1).seconds.do(update_teacher_database_from_json)
+schedule.every(1).seconds.do(update_admin_database_from_json)
 
 
 # Function to start the scheduled data upload
@@ -89,7 +165,9 @@ def run_scheduled_job():
 
 
 if __name__ == '__main__':
-    update_database_from_json()
+    update_teacher_database_from_json()
+    update_student_database_from_json()
+    update_admin_database_from_json()
 
     # Start the scheduled job in the background
     import threading

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <title>Instruction</title>
+</head>
+<body>
+    {% include 'student/sidebar.html' %}
+
+    <div class="container">
+        <h2>Test Instructions</h2>
+        {% for subject, data in test_data.items() %}
+            <div>
+                <h3>{{ subject }}</h3>
+                <p>Description: {{ data.description }}</p>
+                <p>Date: {{ data.date }}</p>
+                <p>Time: {{ data.time }}</p>
+                <p>Duration: {{ data.duration }}</p>
+                <p>Number of Questions: {{ data.num_questions }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

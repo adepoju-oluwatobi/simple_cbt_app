@@ -18,9 +18,14 @@
             "Computer": 1
         },
         "progress": {
-            "Agric": 100.0,
-            "A test subject": 100.0,
-            "Computer": 100.0
+            "Agric": 0,
+            "Physics": 0,
+            "New subject": 0,
+            "History": 0,
+            "computer": 0,
+            "CRS": 0,
+            "A test subject": 0,
+            "Computer": 0
         }
     },
     "ugbo6189": {
@@ -57,7 +62,7 @@
             "Computer": 1
         },
         "progress": {
-            "Computer": 0
+            "Computer": 100.0
         }
     },
     "oluwatobi4844": {
@@ -69,7 +74,7 @@
     },
     "atoe9558": {
         "parent_name": "Mr and Mrs Atoe",
-        "name": "Atoe Bright",
+        "name": "Atoe Bright Ayomide",
         "class": "Year 8GRAHAM",
         "password": "bright123",
         "score": 0
@@ -91,11 +96,28 @@
             "Computer": 100.0
         }
     },
-    "ajanlekoko8239": {
-        "parent_name": "Mr Ajanlekoko",
-        "name": "Ajanlekoko eleko",
+    "rachael3733": {
+        "parent_name": "Mr and Mrs Odudu",
+        "name": "Rachael Odudu",
         "class": "Year 8GRAHAM",
-        "password": "ajalenkoko123",
+        "password": "rachael123",
+        "score": 0,
+        "scores": {
+            "Computer": 0,
+            "Agric": 1,
+            "A test subject": 0
+        },
+        "progress": {
+            "Computer": 100.0,
+            "Agric": 100.0,
+            "A test subject": 100.0
+        }
+    },
+    "spider5494": {
+        "parent_name": "Mr and Mrs Spider",
+        "name": "Spider Woman",
+        "class": "Year 8GRAHAM",
+        "password": "spidey123",
         "score": 0
     }
 }

@@ -1,14 +1,14 @@
 {
-    "adepoju": {
+    "Adepoju": {
         "email": "adepoju@gmail.com",
         "password": "admin",
         "subject": "computer Studies",
         "class": "Year 8GRAHAM"
     },
     "Akinwale": {
-        "email": "none for now",
+        "email": "akinwale@gmail.com",
         "password": "akinwale",
         "subject": "Home Economics",
-        "class": "Year 7D"
+        "class": "Year 7DARWIN"
     }
 }

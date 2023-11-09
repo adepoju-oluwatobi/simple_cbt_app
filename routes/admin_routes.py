@@ -98,11 +98,13 @@ def save_edited_student(username):
         name = request.form['name']
         student_class = request.form['class']
         parent_name = request.form['parent_name']
+        progress = request.form['progress']
 
         updated_data = {
             'name': name,
             'class': student_class,
-            'parent_name': parent_name
+            'parent_name': parent_name,
+            'progress': progress
         }
 
         update_student_data(username, updated_data)
