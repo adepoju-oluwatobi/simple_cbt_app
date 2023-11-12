@@ -1,11 +1,9 @@
 import json
 import os
 import time
-
-import schedule  # Import the schedule library
+import schedule
 from flask import Flask, render_template, session
 from flask_sqlalchemy import SQLAlchemy
-
 from routes.admin_routes import admin_routes
 from routes.student_routes import student_routes
 from routes.teacher_routes import teacher_routes
@@ -15,6 +13,8 @@ current_directory = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
 app.secret_key = 'username'
+# Add the configuration for the upload folder
+app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin@localhost:3000/CBT-app'
 db = SQLAlchemy(app)
 
@@ -67,6 +67,13 @@ class Admin(db.Model):
     password = db.Column(db.String(100))
 
 
+class Questions(db.Model):
+    __tablename__ = 'questions'
+    id = db.Column(db.Integer, primary_key=True)
+    year = db.Column(db.String(100), unique=True, nullable=False)
+    data = db.Column(db.JSON)
+
+
 # Load student data from the JSON file
 def load_student_data():
     with open('student_data/student.json', 'r') as student_file:
@@ -85,6 +92,12 @@ def load_admin_data():
         admin_data = json.load(admin_file)
         # print(admin_data)
     return admin_data
+
+
+def load_question_data():
+    with open('questions/questions.json', 'r') as questions:
+        question_data = json.load(questions)
+    return question_data
 
 
 # Function to save student data to the database
@@ -132,6 +145,23 @@ def update_teacher_database_from_json():
         db.session.commit()
 
 
+def update_question_database_from_json():
+    question_data = load_question_data()
+    with app.app_context():
+        db.create_all()
+        Questions.query.delete()
+
+        for year, data in question_data.items():
+            questions = Questions(
+                year=year,
+                data=data
+            )
+
+            db.session.add(questions)
+
+        db.session.commit()
+
+
 def update_admin_database_from_json():
     admin_data = load_admin_data()
     with app.app_context():
@@ -154,6 +184,7 @@ def update_admin_database_from_json():
 # Schedule the update_database_from_json function to run every hour
 schedule.every(1).seconds.do(update_student_database_from_json)
 schedule.every(1).seconds.do(update_teacher_database_from_json)
+schedule.every(1).seconds.do(update_question_database_from_json)
 schedule.every(1).seconds.do(update_admin_database_from_json)
 
 
@@ -167,6 +198,7 @@ def run_scheduled_job():
 if __name__ == '__main__':
     update_teacher_database_from_json()
     update_student_database_from_json()
+    update_question_database_from_json()
     update_admin_database_from_json()
 
     # Start the scheduled job in the background

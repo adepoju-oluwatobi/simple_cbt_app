@@ -1,6 +1,6 @@
 {
     "Femi": {
-        "name": "Femi Adeoye",
+        "name": "Femi Adeoye Ojo new",
         "parent_name": "Mr and Mrs Femi",
         "password": "femolala",
         "class": "Year 8GRAHAM",
@@ -18,14 +18,7 @@
             "Computer": 1
         },
         "progress": {
-            "Agric": 0,
-            "Physics": 0,
-            "New subject": 0,
-            "History": 0,
-            "computer": 0,
-            "CRS": 0,
-            "A test subject": 0,
-            "Computer": 0
+            "Agric": 100.0
         }
     },
     "ugbo6189": {

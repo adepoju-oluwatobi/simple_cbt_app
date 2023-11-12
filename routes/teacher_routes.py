@@ -1,5 +1,6 @@
 from flask import Flask, render_template, flash, request, redirect, url_for, session
 from . import *  # Import the student_routes blueprint
+import pandas as pd
 
 
 @teacher_routes.route('/login', methods=['GET', 'POST'])
@@ -98,7 +99,70 @@ def manage_cbt():
 @teacher_routes.route('/submit_exam', methods=['GET', 'POST'])
 def submit_exam():
     if request.method == 'POST':
-        # Get the data from the form
+        # Check if the request contains a file
+        if 'file' in request.files:
+            file = request.files['file']
+            print(f"File Name: {file.filename}, File Size: {file.content_length}")
+
+            # Check if the file has a valid extension (you can customize this based on your needs)
+            if file and file.filename.endswith('.xlsx'):
+                try:
+                    # Read the Excel file using pandas
+                    df = pd.read_excel(file)
+
+                    # Get the metadata from the form
+                    description = request.form['description']
+                    class_name = request.form['class']
+                    subject = request.form['subject']
+                    date = request.form['date']
+                    time = request.form['time']
+                    duration = request.form['duration']
+
+                    # Create a new subject entry in the 'questions' dictionary
+                    if class_name not in questions:
+                        questions[class_name] = {}
+
+                    # Create a new subject entry within the class
+                    questions[class_name][subject] = {
+                        'description': description,
+                        'date': date,
+                        'time': time,
+                        'duration': duration,
+                        'questions': {}
+                    }
+
+                    # Load the existing questions for the subject
+                    subject_questions = questions[class_name][subject]['questions']
+
+                    # Loop through the DataFrame to extract questions
+                    for index, row in df.iterrows():
+                        question = row['question']
+                        options = row['options'].split(',')
+                        correct_answer = row['correct_answer']
+
+                        # Convert the index to an integer
+                        index = int(index)
+
+                        # Create a new question entry within the subject's questions
+                        subject_questions[index + 1] = {
+                            'question': question,
+                            'options': options,
+                            'correct_answer': correct_answer
+                        }
+
+                    # Save the entire questions dictionary back to the 'questions.json' file
+                    save_questions()
+
+                    print(f"File Name: {file.filename}, File Size: {file.content_length}")
+                    print(f"Request Files: {request.files}")
+
+                    return redirect(url_for('teacher_routes.manage_cbt'))
+
+                except Exception as e:
+                    # Handle any errors that may occur during file processing
+                    return render_template('teacher/create_question.html', error=str(e))
+
+        # Continue with your existing code if no file is provided in the request
         description = request.form['description']
         class_name = request.form['class']
         subject = request.form['subject']

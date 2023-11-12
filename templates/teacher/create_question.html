@@ -8,7 +8,11 @@
     {% include 'header.html' %}
     <div class="container">
         <h1>Create New Questions</h1>
-        <form method="POST" action="{{ url_for('teacher_routes.submit_exam') }}">
+        <form method="POST" action="{{ url_for('teacher_routes.submit_exam') }}" enctype="multipart/form-data">
+            <div>
+    <label for="file">Upload Excel File (Questions Only):</label>
+    <input type="file" id="file" name="file" accept=".xlsx">
+</div>
             <label for="class">Class:</label>
             <select id="class" name="class" required>
                 <option value="Year 8GRAHAM">Year 8GRAHAM</option>
@@ -34,7 +38,7 @@
             <input type="time" id="duration" name="duration" required>
 
             <label for="num_questions">Number of Questions to Create:</label>
-            <input type="number" id="num_questions" name="num_questions" required>
+            <input type="number" id="num_questions" name="num_questions">
 
             <div id="questions-container">
                 <!-- This div will contain the dynamically created questions, options, and correct answer fields -->

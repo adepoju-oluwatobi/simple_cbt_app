@@ -1,5 +1,7 @@
-from flask import request, redirect, url_for, current_app
 from datetime import datetime
+
+from flask import request, redirect, url_for
+
 from . import *  # Import the student_routes blueprint
 
 
@@ -129,15 +131,6 @@ def get_completed_subjects(student_data, class_questions):
     return completed_subjects
 
 
-def is_subject_completed(student_data, subject, max_exams):
-    if max_exams is not None:
-        if subject in student_data.get('completed_subjects', []):
-            return True
-        completed_exams = student_data.get('completed_exams', {}).get(subject, 0)
-        return completed_exams >= max_exams
-    return False
-
-
 # Load questions from the JSON file
 def load_questions():
     with open(questions_json_path, 'r') as questions_data:
@@ -145,40 +138,17 @@ def load_questions():
     return question
 
 
-@student_routes.route('/instruction/<class_name>/<subject>', methods=['GET', 'POST'])
-def instruction(class_name, subject):
+@student_routes.route('/instruction')
+def instruction():
     if 'username' in session:
-        username = session['username']
-        student_data = students.get(username, {})
-        student_class = student_data.get('class', '')
-        progress = student_data.get('progress', {})
+        pass
 
         # Load your questions JSON data
-        all_questions = load_questions()
         # Get class-specific questions and max exams
-        class_questions = all_questions.get(student_class, {})
 
-        if request.method == 'POST':
-            selected_subject = request.form.get('subject')  # Assuming the subject is submitted via a form
-        else:
-            # Default to the first subject if not submitted via a form
-            selected_subject = next(iter(class_questions.keys()), None)
+        # Extract the test data (date, time, duration) for each subject
 
-        subject_data = class_questions.get(selected_subject, {})
-        test_data = {
-            selected_subject: {
-                "description": subject_data.get("description"),
-                "date": subject_data.get("date"),
-                "time": subject_data.get("time"),
-                "duration": subject_data.get("duration"),
-                "num_questions": len(subject_data.get("questions", [])),
-            }
-        }
-
-        return render_template('student/instruction.html', test_data=test_data)
-
-    # Handle the case where 'username' is not in session
-    return render_template('login.html')
+    return render_template('student/instruction.html')
 
 
 @student_routes.route('/start_exam/<class_name>/<subject>')
@@ -295,11 +265,9 @@ def submit_exam():
                 print(f"Completed Exams: {student_data.get('completed_exams')}")
 
                 # Load questions data
-                all_questions = load_questions()
-                max_exams = all_questions.get(student_data['class'], {}).get(subject, {}).get('max_exams')
 
                 # Update the progress in the student's data
-                progress = calculate_progress(student_data, subject, max_exams)
+                progress = calculate_progress(student_data, subject)
 
                 if 'progress' not in student_data:
                     student_data['progress'] = {}
@@ -325,7 +293,7 @@ def submit_exam():
     return redirect(url_for('student_routes.student_login'))
 
 
-def calculate_progress(student_data, subject, max_exams):
+def calculate_progress(student_data, subject):
     max_exams = 1
     # Check if 'completed_exams' key is present in student_data
     if 'completed_exams' in student_data:
@@ -387,6 +355,7 @@ def calculate_score(user_answers, subject):
 
 @student_routes.route('/show_score/<subject>')
 def show_score(subject):
+    global subject_data
     if 'username' in session:
         username = session['username']
         student_data = students.get(username, {})
