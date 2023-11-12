@@ -15,7 +15,7 @@ app = Flask(__name__)
 app.secret_key = 'username'
 # Add the configuration for the upload folder
 app.config['UPLOAD_FOLDER'] = 'uploads'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://cbt_app_o12z_user:OK5FnjfzMu7s1iHSJ4DZCRWzXAraOxat@dpg-cl8kntivokcc73b0v9a0-a/cbt_app_o12z'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin@localhost:3000/CBT-app'
 db = SQLAlchemy(app)
 
 app.register_blueprint(student_routes, url_prefix="/student")
