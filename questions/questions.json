@@ -134,6 +134,34 @@
                     "correct_answer": "input"
                 }
             }
+        },
+        "A new Exam": {
+            "description": "Entrance Exam",
+            "date": "2023-11-12",
+            "time": "08:00",
+            "duration": "00:30",
+            "questions": {
+                "1": {
+                    "question": "What is a mouse",
+                    "options": [
+                        "input",
+                        "output",
+                        "none",
+                        "all"
+                    ],
+                    "correct_answer": "input"
+                },
+                "2": {
+                    "question": "What is a home econs",
+                    "options": [
+                        "a subject",
+                        "a test",
+                        "food",
+                        "head"
+                    ],
+                    "correct_answer": "a subject"
+                }
+            }
         }
     },
     "Year 7CHURCHILL": {},

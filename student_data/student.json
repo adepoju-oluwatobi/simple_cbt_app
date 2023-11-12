@@ -15,10 +15,12 @@
             "New subject": 1,
             "test": 1,
             "A test subject": 2,
-            "Computer": 1
+            "Computer": 1,
+            "A new Exam": 2
         },
         "progress": {
-            "Agric": 100.0
+            "Agric": 100.0,
+            "A new Exam": 100.0
         }
     },
     "ugbo6189": {
