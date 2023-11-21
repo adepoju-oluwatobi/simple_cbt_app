@@ -1,0 +1,46 @@
+<!-- templates/student/header.html -->
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='header_2.css') }}">
+</head>
+<header>
+    <div>
+        <p class="site-title">CBT Software</p>
+    </div>
+    <div class="profile">
+        <img src="{{ url_for('static', filename='images/bell.svg') }}" alt="">
+        <div class="pics_container">
+            <img class="pics" id="dropdown-toggle" src="{{ url_for('static', filename='images/Ellipse 1.png') }}" alt="">
+            <img class="online" src="{{ url_for('static', filename='images/online.svg') }}" alt="">
+            <div id="dropdown-content" class="dropdown-contents">
+                <a href="{{ url_for('admin_routes.admin_logout') }}">Logout</a>
+            </div>
+        </div>
+    </div>
+</header>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const dropdownToggle = document.getElementById('dropdown-toggle');
+        const dropdownContent = document.getElementById('dropdown-content');
+
+        dropdownToggle.addEventListener('click', function (event) {
+            event.stopPropagation(); // Prevent the click event from reaching the document
+
+            // Toggle the display of the dropdown content
+            if (dropdownContent.style.display === 'block') {
+                dropdownContent.style.display = 'none';
+            } else {
+                dropdownContent.style.display = 'block';
+            }
+        });
+
+        // Close the dropdown when the user clicks outside of it
+        document.addEventListener('click', function () {
+            dropdownContent.style.display = 'none';
+        });
+
+        // Prevent clicks inside the dropdown from closing it
+        dropdownContent.addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+    });
+</script>

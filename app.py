@@ -26,7 +26,7 @@ app.register_blueprint(admin_routes, url_prefix="/admin")
 # route for the landing page
 @app.route('/')
 def homepage():
-    return render_template('landingPage.html', user_authenticated=is_authenticated())
+    return render_template('homepage.html', user_authenticated=is_authenticated())
 
 
 # handles user authentication

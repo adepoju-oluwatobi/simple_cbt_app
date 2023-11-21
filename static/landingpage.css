@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.main{
+height: 90vh;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.main aside{
+    display: flex;
+    gap: 20px;
+
+}
+.main aside .content{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 150px;
+    height: 50px;
+    padding: 50px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0px 15px 30px 0px rgba(0, 0, 0, 0.25);
+}
+.main aside a{
+    text-decoration: none;
+}
+.main aside .content img{
+    width: 50%;
+}
+
+.main aside .admin{
+    background: #FEF499;
+    color: black;
+}
+.main aside .student{
+    background: #800020;
+    color: white;
+}
+.main aside .teacher{
+    background: #C1FAED;
+    color: black;
+}
+.main aside .parent{
+    background: #9FF2FD;
+    color: black;
+}

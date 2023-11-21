@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='landingpage.css') }}"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>MCQ Software</title>
+  </head>
+  <body>
+    {% include 'header.html' %}
+
+    <div class="main">
+      <aside>
+        <a href="admin/login">
+          <div class="admin content">
+            <img src="./static/images/admin-icon.svg" />
+            <p>Admin</p>
+          </div>
+        </a>
+
+        <a href="student/login">
+          <div class="student content">
+            <img src="./static/images/student-icon.svg" />
+            <p>Student</p>
+          </div>
+        </a>
+      </aside>
+
+      <aside>
+        <a href="teacher/login">
+          <div class="teacher content">
+            <img src="./static/images/teacher-icon.svg" />
+            <p>Teacher</p>
+          </div>
+        </a>
+
+        <a href="#">
+          <div class="parent content">
+            <img src="./static/images/parent-icon.svg" />
+            <p>Parent</p>
+          </div>
+        </a>
+      </aside>
+    </div>
+  </body>
+</html>

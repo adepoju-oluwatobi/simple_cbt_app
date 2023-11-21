@@ -1,0 +1,68 @@
+<!-- sidebar.html -->
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='sidebar.css') }}">
+</head>
+<aside class="sidebar">
+    <ul class="sidebar-nav">
+        <li>
+            <p class="menu">
+                <div>
+                    <img src="{{ url_for('static', filename='images/menu.svg') }}" alt="">
+                </div>
+            </p>
+        </li>
+        <li>
+            <a href="/admin/dashboard">
+                <div>
+                    <img src="{{ url_for('static', filename='images/home.svg') }}" alt="">
+                    <p>Home</p>
+                </div>
+            </a>
+        </li>
+        <li class="dropdown" onclick="toggleContent()">
+            <a href="#" class="dropdown-btn" id="cbt-dropdown">
+                <div>
+                    <img src="{{ url_for('static', filename='images/airplay.svg') }}" alt="">
+                    <div class="cbt">
+                        <p>CBT</p>
+                        <img src="{{ url_for('static', filename='images/chevron-up.svg') }}" alt="">
+                    </div>
+                </div>
+            </a>
+            <div class="dropdown-content" id="cbt-dropdown-content" style="display: none;">
+                <a href="/admin/manage_cbt">Manage CBT</a>
+                <a href="#">Test History</a>
+                <a href="#">Practice Test</a>
+            </div>
+        </li>
+        <li>
+            <a href="#">
+                <div>
+                    <img src="{{ url_for('static', filename='images/book-open.svg') }}" alt="">
+                    <p>Assignment</p>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <div>
+                    <img src="{{ url_for('static', filename='images/users.svg') }}" alt="">
+                    <p>Virtual Class</p>
+                </div>
+            </a>
+        </li>
+        <!-- Add more links as needed -->
+    </ul>
+</aside>
+<script>
+
+
+    function toggleContent() {
+        const element = document.getElementById("cbt-dropdown-content");
+        if (element.style.display == "none"){
+            element.style.display = "flex"
+        } else {
+            element.style.display = "none"
+        }
+    }
+</script>

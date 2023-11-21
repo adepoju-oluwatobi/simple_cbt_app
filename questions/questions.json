@@ -1,82 +1,8 @@
 {
     "Year 8GRAHAM": {
-        "Agric": {
-            "description": "First Term Exam",
-            "date": "2023-10-04",
-            "time": "11:09",
-            "duration": "00:01",
-            "questions": {
-                "1": {
-                    "question": "What is agriculture?",
-                    "options": [
-                        "a",
-                        "b",
-                        "c",
-                        "d"
-                    ],
-                    "correct_answer": "a"
-                }
-            }
-        },
-        "A test subject": {
-            "description": "First Term Exam",
-            "date": "2023-11-05",
-            "time": "07:51",
-            "duration": "00:01",
-            "questions": {
-                "1": {
-                    "question": "what is a dog",
-                    "options": [
-                        "a",
-                        "b",
-                        "c",
-                        "d"
-                    ],
-                    "correct_answer": "a"
-                },
-                "2": {
-                    "question": "what is ICT",
-                    "options": [
-                        "a",
-                        "b",
-                        "c",
-                        "d"
-                    ],
-                    "correct_answer": "b"
-                },
-                "3": {
-                    "question": "Who am i?",
-                    "options": [
-                        "a",
-                        "b",
-                        "c",
-                        "d"
-                    ],
-                    "correct_answer": "c"
-                }
-            }
-        },
-        "Computer": {
-            "description": "First Term Exam",
-            "date": "2023-11-05",
-            "time": "08:40",
-            "duration": "00:01",
-            "questions": {
-                "1": {
-                    "question": "Is keyboard an input device?",
-                    "options": [
-                        "yes",
-                        "no",
-                        "maybe",
-                        "i dont know"
-                    ],
-                    "correct_answer": "yes"
-                }
-            }
-        },
         "Computer studies": {
             "description": "First Term Exam",
-            "date": "2023-11-18",
+            "date": "2023-11-13",
             "time": "08:00",
             "duration": "01:00",
             "questions": {
@@ -92,52 +18,9 @@
                 }
             }
         },
-        "Compliments": {
-            "description": "First Term Exam",
-            "date": "2023-11-12",
-            "time": "17:23",
-            "duration": "17:23",
-            "questions": {}
-        },
-        "Yoruba": {
-            "description": "First Term Exam",
-            "date": "2023-11-13",
-            "time": "14:28",
-            "duration": "22:29",
-            "questions": {
-                "1": {
-                    "question": "what is a dog",
-                    "options": [
-                        "a",
-                        "b",
-                        "c",
-                        "d"
-                    ],
-                    "correct_answer": "a"
-                }
-            }
-        },
         "Home Econs": {
             "description": "First Term Exam",
-            "date": "2023-11-12",
-            "time": "22:36",
-            "duration": "01:30",
-            "questions": {
-                "1": {
-                    "question": "What is a mouse",
-                    "options": [
-                        "input",
-                        "output",
-                        "none",
-                        "all"
-                    ],
-                    "correct_answer": "input"
-                }
-            }
-        },
-        "A new Exam": {
-            "description": "Entrance Exam",
-            "date": "2023-11-12",
+            "date": "2023-11-15",
             "time": "08:00",
             "duration": "00:30",
             "questions": {
@@ -164,33 +47,74 @@
             }
         }
     },
-    "Year 7CHURCHILL": {},
-    "Year 7IVY": {
-        "Computer": {
+    "Year 7CHURCHILL": {
+        "French": {
             "description": "First Term Exam",
-            "date": "2023-11-05",
-            "time": "10:06",
+            "date": "2023-11-16",
+            "time": "08:00",
             "duration": "00:01",
             "questions": {
                 "1": {
-                    "question": "Is keyboard an input device?",
+                    "question": "What is a mouse",
                     "options": [
-                        "yes",
-                        "no",
-                        "maybe",
-                        "i dont know"
+                        "input",
+                        "output",
+                        "none",
+                        "all"
                     ],
-                    "correct_answer": "yes"
+                    "correct_answer": "input"
+                },
+                "2": {
+                    "question": "What is a home econs",
+                    "options": [
+                        "a subject",
+                        "a test",
+                        "food",
+                        "head"
+                    ],
+                    "correct_answer": "a subject"
                 }
             }
         }
     },
+    "Year 7IVY": {},
     "Year 7HOLMES": {
         "Home Econs": {
             "description": "First Term Exam",
             "date": "2023-11-12",
             "time": "22:38",
             "duration": "22:38",
+            "questions": {
+                "1": {
+                    "question": "What is a mouse",
+                    "options": [
+                        "input",
+                        "output",
+                        "none",
+                        "all"
+                    ],
+                    "correct_answer": "input"
+                },
+                "2": {
+                    "question": "What is a home econs",
+                    "options": [
+                        "a subject",
+                        "a test",
+                        "food",
+                        "head"
+                    ],
+                    "correct_answer": "a subject"
+                }
+            }
+        }
+    },
+    "Year 7GRAHAM": {},
+    "Year 9GRAHAM": {
+        "Computer": {
+            "description": "First Term Exam",
+            "date": "2023-11-13",
+            "time": "08:00",
+            "duration": "01:00",
             "questions": {
                 "1": {
                     "question": "What is a mouse",

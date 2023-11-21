@@ -1,0 +1,99 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.container{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    font-family: 'Inter', sans-serif;
+}
+.one{
+    background: url('../static/images/admin-img.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 50%;
+    height:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.one::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+section.one div{
+    z-index:999;
+}
+.one h3{
+    width: 10ch;
+    color: white;
+    font-size: 52px;
+    line-height: 60px;
+}
+.one p{
+    color: #F8C82A;
+}
+.two{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-container, form{
+    width: 70%;
+    margin: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.username, .password{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.username input, .password input{
+    width: 90%;
+    padding: 18px;
+    border: none;
+    border-radius: 10px;
+    background: #F1EFEF;
+}
+.username label, .password label{
+    font-weight: bold;
+}
+.extras{
+    display: flex;
+    justify-content: space-between;
+}
+.extras a{
+    text-decoration: none;
+    color: black;
+}
+.extras input{
+    cursor: pointer;
+}
+.heading{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.submit-btn{
+    padding: 12px;
+    border: none;
+    background: #F8C82A;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.error p{
+    color: red;
+    text-align: center;
+}

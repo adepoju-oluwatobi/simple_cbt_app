@@ -16,11 +16,15 @@
             "test": 1,
             "A test subject": 2,
             "Computer": 1,
-            "A new Exam": 2
+            "A new Exam": 2,
+            "Computer studies": 1,
+            "Home Econs": 2
         },
         "progress": {
             "Agric": 100.0,
-            "A new Exam": 100.0
+            "A new Exam": 100.0,
+            "Computer studies": 100.0,
+            "Home Econs": 100.0
         }
     },
     "ugbo6189": {
@@ -113,6 +117,13 @@
         "name": "Spider Woman",
         "class": "Year 8GRAHAM",
         "password": "spidey123",
+        "score": 0
+    },
+    "agbo5895": {
+        "parent_name": "Mr and Mrs Agbo",
+        "name": "Agbo Jasmine",
+        "class": "Year 7GRAHAM",
+        "password": "agbo123",
         "score": 0
     }
 }

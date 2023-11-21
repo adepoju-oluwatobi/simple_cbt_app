@@ -16,10 +16,13 @@ header {
 .site-title{
   font-weight: bold;
   font-size: 24px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: gray
 }
 header h1 {
   color: black;
-  /* Replace with your desired text color */
   font-size: 24px;
   font-weight: bold;
 }

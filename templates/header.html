@@ -4,25 +4,11 @@
 </head>
 <header>
     <p class="site-title">MCQ software</p>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li class="dropdown">
-                <a href="#">Login</a>
-                <ul class="dropdown-content" id="login-dropdown">
-                    <li><a href="/student/login">Student Login</a></li>
-                    <li><a href="/teacher/login">Teachers Login</a></li>
-                    <li><a href="/parent/login">Parent Login</a></li>
-                    <li><a href="/admin/login">Admin Login</a></li>
-                </ul>
-            </li>
-            {% if user_authenticated %}
-            <li><a href="/student/dashboard">Dashboard</a></li>
-            {% endif %}
-        </ul>
-    </nav>
+<!--        <ul>-->
+<!--            {% if user_authenticated %}-->
+<!--            <li><a href="/student/dashboard">Dashboard</a></li>-->
+<!--            {% endif %}-->
+<!--        </ul>-->
 </header>
 
 <!-- Add this script at the end of your HTML body -->

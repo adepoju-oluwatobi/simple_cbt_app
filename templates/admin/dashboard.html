@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
     <title>Dashboard</title>
 </head>
 <body>
-{% include 'header.html' %}
+{% include 'admin/sidebar.html' %}
     <div class="container">
-        <h1>Welcome, {{ username }}!</h1>
-        <p><a href="/admin/manage_student">Manage Students</a></p>
-        <p><a href="/teacher/manage_cbt">Manage CBT</a></p>
-        <p><a href="/admin/logout">Logout</a></p>
+        {% include 'admin/header.html' %}
+       <div class="content">
+            <h1 class="welcome">Welcome, <span class="name">{{ username }}!</span></h1>
+            <p><a href="/admin/manage_student">Manage Students</a></p>
+       </div>
     </div>
 </body>
 </html>
