@@ -3,6 +3,7 @@ import os
 import time
 import schedule
 from flask import Flask, render_template, session
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from routes.admin_routes import admin_routes
 from routes.student_routes import student_routes
@@ -12,11 +13,21 @@ from routes.teacher_routes import teacher_routes
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = 'username'
 # Add the configuration for the upload folder
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin@localhost:3000/CBT-app'
 db = SQLAlchemy(app)
+
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = 'http://localhost:5173'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS, PUT, DELETE'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
+    return response
 
 app.register_blueprint(student_routes, url_prefix="/student")
 app.register_blueprint(teacher_routes, url_prefix="/teacher")

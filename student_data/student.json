@@ -35,7 +35,9 @@
         "scores": {
             "Agric": 1,
             "A test subject": 3,
-            "Computer": 1
+            "Computer": 1,
+            "Computer studies": 1,
+            "Home Econs": 0
         },
         "progress": {
             "Agric": 0,
@@ -45,7 +47,9 @@
             "computer": 0,
             "CRS": 0,
             "A test subject": 0,
-            "Computer": 0
+            "Computer": 0,
+            "Computer studies": 100.0,
+            "Home Econs": 100.0
         },
         "completed_exams": {
             "Agric": 1

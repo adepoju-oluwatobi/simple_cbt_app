@@ -138,5 +138,35 @@
                 }
             }
         }
+    },
+    "Year 9DARWIN": {
+        "PHE": {
+            "description": "Fortnight",
+            "date": "2023-11-22",
+            "time": "08:00",
+            "duration": "00:01",
+            "questions": {
+                "1": {
+                    "question": "What is a mouse",
+                    "options": [
+                        "input",
+                        "output",
+                        "none",
+                        "all"
+                    ],
+                    "correct_answer": "input"
+                },
+                "2": {
+                    "question": "What is a home econs",
+                    "options": [
+                        "a subject",
+                        "a test",
+                        "food",
+                        "head"
+                    ],
+                    "correct_answer": "a subject"
+                }
+            }
+        }
     }
 }

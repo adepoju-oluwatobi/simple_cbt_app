@@ -229,6 +229,9 @@ def submit_exam():
             file = request.files['file']
             print(f"File Name: {file.filename}, File Size: {file.content_length}")
 
+            # Save the file to the 'uploads' folder
+            file.save('uploads/' + file.filename)
+
             # Check if the file has a valid extension (you can customize this based on your needs)
             if file and file.filename.endswith('.xlsx'):
                 try:
