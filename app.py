@@ -3,7 +3,6 @@ import os
 import time
 import schedule
 from flask import Flask, render_template, session
-from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from routes.admin_routes import admin_routes
 from routes.student_routes import student_routes
@@ -13,7 +12,6 @@ from routes.teacher_routes import teacher_routes
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
-CORS(app)
 app.secret_key = 'username'
 # Add the configuration for the upload folder
 app.config['UPLOAD_FOLDER'] = 'uploads'
